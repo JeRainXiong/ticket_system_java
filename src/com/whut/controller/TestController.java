@@ -18,7 +18,7 @@ public class TestController {
 	@RequestMapping("test")
 	
 	public ModelAndView test(Model model){     
-		   System.out.println("succ");
+		   System.out.println("succffffff");
 		   //在这调用服务
 		   //model为传到前端页面的参数
 		   List<User> variable = serviceU.listAll();
