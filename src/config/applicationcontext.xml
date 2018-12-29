@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+">
+  <!-- 启用注解 -->
+  <context:annotation-config/>
+  <!-- 扫描包，把包中的有注解的类创建对象存储在IOC容器中 -->
+  <context:component-scan base-package="com.whut.service.impl"/>
+ 
+  <!-- 数据源对象创建 -->
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+      <!-- 基础连接 -->
+      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+      <property name="url" value="jdbc:mysql://localhost:3306/ticket_system?characterEncoding=utf-8"/>
+      <property name="username" value="root"/>
+      <property name="password" value="oKqWe2812756"/>
+      
+      <!-- 连接池配置 --> 
+      <property name="initialSize" value="10"/>
+      <property name="maxActive" value="100"/>
+      <property name="maxIdle" value="20"/>
+      <property name="maxWait" value="1200"/>
+      <property name="minIdle" value="10"/>     
+  </bean>
+
+  <!-- 创建SqlSessionFactory对象 -->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" ref="dataSource"/>  
+  		<property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+  		<property name="mapperLocations" value="classpath:com/whut/mapping/*.xml" />
+  </bean>
+  <!-- 扫描持久化接口的代理对象 -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    <property name="basePackage" value="com.whut.dao"/>
+  </bean>
+  
+
+
+
+
+</beans>
