@@ -158,5 +158,3 @@
 <script type="text/javascript" src="js/common/page.js"></script>
 </body>
 </html>
-</body>
-</html>
