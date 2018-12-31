@@ -1,5 +1,6 @@
 package com.whut.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,12 @@ public class ConcertServiceImpl implements com.whut.service.ConcertService {
 	}
 
 	@Override
-	public List<Concert> listPage(Map map) {
+	public List<Concert> listPage(int beginPage,int pageRows) {
+		
+		int begin = (beginPage -1)*pageRows;
+		Map map = new HashMap();
+		map.put("begin", begin);
+		map.put("rows", pageRows);
 		// TODO Auto-generated method stub
 		return dao.listPage(map);
 	}
@@ -57,7 +63,7 @@ public class ConcertServiceImpl implements com.whut.service.ConcertService {
 
 	@Override
 	public List<Concert> listByName(String name) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return dao.listByName(name);
 	}
 

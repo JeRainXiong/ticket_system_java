@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="listPage" resultType="Concert" parameterType="map">
-	    select *from concert LIMIT #{begin}, #{rows} order by concert_time DESC
+	    select * from concert order by concert_time DESC LIMIT #{begin}, #{rows} 
 	</select>
 	
 	<select id="listByName" resultType="Concert" parameterType="String">

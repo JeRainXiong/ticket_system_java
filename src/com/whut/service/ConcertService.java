@@ -7,7 +7,7 @@ import com.whut.entity.Concert;
 
 public interface ConcertService {
 	public List<Concert> listAll();
-	public List<Concert> listPage(Map map);
+	public List<Concert> listPage(int beginPage,int pageRows);
 	public List<Concert> listByName(String name);
 	public int count();//缁熻鎬绘潯鏁�
 	public Concert getById(int concertId);
