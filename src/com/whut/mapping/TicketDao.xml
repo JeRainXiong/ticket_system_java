@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.dao.TicketDao">
+
+	<select id="listAll"  resultType="Ticket">
+		select * from ticket
+	</select>
+	
+	<select id="listPage" resultType="Ticket" parameterType="map">
+	    select *from ticket LIMIT #{begin}, #{rows}
+	</select>
+	
+	<select id="count" resultType="int">
+	    select count(*) from ticket
+	</select>
+	
+	<select id="getById" resultType="Ticket" parameterType="int">
+	    select * from ticket where order_id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="Ticket">
+	    insert into ticket values(null,#{orderId}
+	    ,#{seatId},#{ticketTypeId},
+	    #{concertId},#{concertName},#{concertTime},#{concertAddr},
+	    #{userId},#{idCard},#{realName},#{createTime},
+	    #{checkCode},#{ticketToken},#{ticketState}
+	    )
+	</insert>
+	
+	<update id="update">
+	    update ticket
+	    <set>
+	        order_id = #{orderId},seat_static_id = #{seatId},ticket_type_id = #{ticketTypeId},
+	        concert_id = #{concertId},concert_name = #{concertName},concert_time = #{concertTime},
+	        concert_addr = #{concertAddr},user_id = #{userId},id_card = #{idCard},
+	        realname = #{realName},create_time = #{createTime},check_code = #{checkCode},
+	        ticket_token = #{ticketToken},ticket_state = #{ticketState}
+	    </set>
+	    where ticket_id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="int">
+	    delect from ticket where ticket_id = #{id}
+	</delete>
+	
+</mapper> 

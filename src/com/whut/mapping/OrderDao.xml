@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.dao.OrderDao">
+
+	<select id="listAll"  resultType="Order">
+		select * from order order by finish_time DESC
+	</select>
+	
+	<select id="listPage" resultType="Order" parameterType="map">
+	    select *from order LIMIT #{begin}, #{rows} order by finish_time DESC
+	</select>
+	
+	<select id="count" resultType="int">
+	    select count(*) from order
+	</select>
+	
+	<select id="getById" resultType="Order" parameterType="int">
+	    select * from order where order_id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="Order">
+	    insert into order values(null,#{userId}
+	    ,#{realname},#{idCard},
+	    #{tel},#{amount},#{paymentStatus},#{createTime},
+	    #{finishTime},#{orderState},#{orderToken}
+	    )
+	</insert>
+	
+	<update id="update">
+	    update order
+	    <set>
+	        user_id = #{userId},realname = #{realname},id_card = #{idCard},
+	    tel = #{tel},amount = #{amount},payment_sate = #{paymentStatus},
+	    create_time = #{createTime},finish_time = #{finishTime},
+	    order_state = #{orderState},order_token = #{orderToken}
+	    </set>
+	    where order_id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="int">
+	    delect from order where order_id = #{id}
+	</delete>
+	
+</mapper> 

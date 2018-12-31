@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.dao.ConcertDao">
+
+	<select id="listAll"  resultType="Concert">
+		select * from concert order by concert_time DESC
+	</select>
+	
+	<select id="listPage" resultType="Concert" parameterType="map">
+	    select *from concert LIMIT #{begin}, #{rows} order by concert_time DESC
+	</select>
+	
+	<select id="listByName" resultType="Concert" parameterType="String">
+	    select * from concert where concert_name like "%"#{_parameter}"%" order by concert_time DESC
+	</select>
+	
+	<select id="count" resultType="int">
+	    select count(*) from concert
+	</select>
+	
+	<select id="getById" resultType="Concert" parameterType="int">
+	    select * from concert where concert_id = #{id}
+	</select>
+	
+<!-- 	<select id="getByUsername" resultType="Concert" parameterType="String"> -->
+<!-- 	    select * from concert where concert_name = #{username} -->
+<!-- 	</select> -->
+	
+	<insert id="insert" parameterType="Concert">
+	    insert into concert values(null,#{concertName},#{concertTime},#{concertStar},
+	    #{concertAddr},#{concertImg},#{concertDecription},#{concertLowerPrice})
+	</insert>
+	
+	<update id="update">
+	    update concert
+	    <set>
+	        concert_name = #{concertName}, concert_time = #{concertTime}, 
+	        concert_star = #{concertStar}, concert_addr = #{concertAddr},
+	        concert_img = #{concertImg},concert_decription = #{concertDecription},
+	        concert_lower_price = #{concertLowerPrice }
+	    </set>
+	    where concert_id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="int">
+	    delect from concert where concert_id = #{id}
+	</delete>
+	
+</mapper> 
