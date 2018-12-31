@@ -25,5 +25,14 @@
             <property name="prefix" value="/WEB-INF/views/"></property>
             <!-- 文件的后缀名 -->
             <property name="suffix" value=".jsp"></property>
-        </bean>       
+        </bean>      
+        
+		<mvc:annotation-driven >
+		    <!-- 消息转换器 使用中文编码-->
+		    <mvc:message-converters register-defaults="true">
+		      <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		        <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+		      </bean>
+		    </mvc:message-converters>
+		  </mvc:annotation-driven> 
 </beans>

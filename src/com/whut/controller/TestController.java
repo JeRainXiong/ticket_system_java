@@ -7,17 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.whut.entity.Concert;
-import com.whut.entity.Order;
-import com.whut.entity.User;
+
 import com.whut.service.impl.ConcertServiceImpl;
 import com.whut.service.impl.OrderServiceImpl;
 import com.whut.service.impl.UserServiceImpl;
 
 @Controller//æµ‹è¯•ç”¨æŽ§åˆ¶å™¨
-public class TestController {
+public class TestController extends BaseController{
 	@Autowired
 	UserServiceImpl serviceU;
 	
@@ -97,4 +97,11 @@ public class TestController {
 
 		return new ModelAndView("test");
 	}
+	@RequestMapping("test/jsontest")
+	@ResponseBody
+	public String jsontest() {
+		System.out.println(isLogin());
+		return success("ÖÐÎÄ",null,2000);
+	}
 }
+
