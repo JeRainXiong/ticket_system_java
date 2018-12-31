@@ -19,6 +19,8 @@ import com.alibaba.fastjson.JSON;
 public class BaseController {
 	@Autowired  
 	private  HttpServletRequest request;  
+	
+	
 	/**
 	 * 判断用户是否登陆
 	 * @author 熊泽雨
@@ -39,7 +41,6 @@ public class BaseController {
      * @param code 2000表示成功
      * @return String
      */
-    
     protected String success(String msg, Map<String,Object> data, int code)
     {
     	Map<String,Object> map=new HashMap<String,Object>();
@@ -49,6 +50,7 @@ public class BaseController {
     
         return    json(map);
     }
+    
     /**
      * 失败提示信息
      * @author 熊泽雨
@@ -66,6 +68,7 @@ public class BaseController {
         
         return json(map);
     }
+    
     /**
      * 返回JSON数据到ResponseBody
      * @author 熊泽雨
@@ -76,7 +79,7 @@ public class BaseController {
     protected String json(Map<String,Object> json)
     {
     	String mapJsonString = JSON.toJSONString(json);
-    	System.out.println(mapJsonString);
+    	//System.out.println(mapJsonString);
         return mapJsonString;
     }
     
