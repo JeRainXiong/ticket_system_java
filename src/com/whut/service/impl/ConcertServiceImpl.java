@@ -55,4 +55,10 @@ public class ConcertServiceImpl implements com.whut.service.ConcertService {
 		return dao.deleteById(concertId);
 	}
 
+	@Override
+	public List<Concert> listByName(String name) {
+		// TODO 自动生成的方法存根
+		return dao.listByName(name);
+	}
+
 }
