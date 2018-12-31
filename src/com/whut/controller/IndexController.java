@@ -12,6 +12,6 @@ public class IndexController extends BaseController {
 	    public ModelAndView hello(Model model){     
 		   System.out.println("succ");
 		   
-	        return new ModelAndView("hello");
+	        return new ModelAndView("index");
 	    }
 }
