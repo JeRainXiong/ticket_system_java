@@ -6,6 +6,11 @@ import com.whut.entity.Concert;
 
 public interface ConcertDao {
 	public List<Concert> listAll();
+	/**
+	 * 
+	 * @param map
+	 * @return
+	 */
 	public List<Concert> listPage(Map map);
 	public List<Concert> listByName(String name);
 	public int count();//统计总数

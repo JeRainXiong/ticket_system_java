@@ -9,7 +9,7 @@ public interface ConcertService {
 	public List<Concert> listAll();
 	public List<Concert> listPage(int beginPage,int pageRows);
 	public List<Concert> listByName(String name);
-	public int count();//缁熻鎬绘潯鏁�
+	public int count();//
 	public Concert getById(int concertId);
 	public int insert(Concert concert);
 	public int update(Concert concert);

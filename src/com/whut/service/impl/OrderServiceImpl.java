@@ -1,5 +1,6 @@
 package com.whut.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,5 +55,17 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return dao.deleteById(orderId);
 	}
+
+    @Override
+    public List<Order> listByUserId(int userId, int beginPage, int pageRows) {
+        // TODO 自动生成的方法存根
+        int begin = (beginPage -1)*pageRows;
+        Map map = new HashMap();
+        map.put("begin", begin);
+        map.put("rows", pageRows);
+        map.put("userId", userId);
+        // TODO Auto-generated method stub
+        return dao.listByUserId(map);
+    }
 
 }

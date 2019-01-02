@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,9 @@ import com.whut.entity.User;
  */
 public class BaseController {
 	@Autowired  
-	private  HttpServletRequest request;  
+	protected  HttpServletRequest request;  
+    @Autowired  
+    protected  HttpServletResponse  response;  	
 	//protected List<String> _freeActions = Arrays.asList("index","content","Search","register");   	
     protected User _login_user;
     /**
@@ -38,6 +41,7 @@ public class BaseController {
         if(isLogin())
             _login_user = (User)request.getSession().getAttribute("user");
         model.addAttribute("title","学霸蟹票务系统");
+       ;
     }	
 	/**
 	 * 判断用户是否登陆
