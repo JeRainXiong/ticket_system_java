@@ -14,6 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.whut.entity.Concert;
 import com.whut.service.impl.ConcertServiceImpl;
 
+
+/**
+ * 
+ * @author 熊泽雨
+ *
+ */
 @Controller
 public class IndexController extends BaseController {
 	@Autowired
@@ -26,6 +32,7 @@ public class IndexController extends BaseController {
 		list = serviceC.listPage(1,8);
 
 		model.addAttribute("concertList",list);
+		model.addAttribute("title","票务系统");
 	    return new ModelAndView("index");
 	}
 	

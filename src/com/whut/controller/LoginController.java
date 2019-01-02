@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.whut.entity.User;
 import com.whut.service.impl.UserServiceImpl;
 
-
+/**
+ * 
+ * @author 熊泽雨
+ *
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {

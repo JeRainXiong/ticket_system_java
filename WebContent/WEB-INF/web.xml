@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-   xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-     http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
-   id="WebApp_ID" version="3.1">
-  <display-name>Ticket</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+     http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+    id="WebApp_ID" version="3.1">
+    <display-name>Ticket</display-name>
 
-  
-  <servlet>
-  <!-- 加载前端控制器 -->
-  <servlet-name>springmvc</servlet-name>
-  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  <!-- 
-       加载配置文件
-       默认加载规范：
-       * 文件命名：servlet-name-servlet.xml====springmvc-servlet.xml
-       * 路径规范：必须在WEB-INF目录下面
-       修改加载路径：
-   -->
-   
-   <init-param>
-   <param-name>contextConfigLocation</param-name>
-   <param-value>classpath:config/springMVC-servlet.xml</param-value>   
-   </init-param>
-     <load-on-startup>1</load-on-startup>
-  </servlet>
 
-  <servlet-mapping>
-  <servlet-name>springmvc</servlet-name>
-  <url-pattern>/</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <!-- 加载前端控制器 -->
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 
+            * 加载配置文件
+            * 默认加载规范：
+            * 文件命名：servlet-name-servlet.xml====springmvc-servlet.xml
+            * 路径规范：必须在WEB-INF目录下面
+            * 修改加载路径：
+        -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/springMVC-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-<!-- 全局变量，在Spring监听器执行时，会自动来读取到Spring框架的配置文件的信息-->
-<context-param>
-  <param-name>contextConfigLocation</param-name>
-  <param-value>classpath:config/applicationcontext.xml</param-value>
-</context-param>
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-<!-- 配置Spring框架的启动,必须在启用程序启动时就 启动，程序中才可以应用IOC容器中的对象-->
+    <!-- 全局变量，在Spring监听器执行时，会自动来读取到Spring框架的配置文件的信息 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:config/applicationcontext.xml</param-value>
+    </context-param>
 
-<listener>  
- <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-</listener>
-<!-- 中文请求过滤器 -->
-<filter>
+    <!-- 配置Spring框架的启动,必须在启用程序启动时就 启动，程序中才可以应用IOC容器中的对象 -->
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- 中文请求过滤器 -->
+    <filter>
         <description>characterEncodingFilter</description>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -52,6 +51,7 @@
             <param-value>UTF-8</param-value>
         </init-param>
         <init-param>
+
             <param-name>forceEncoding</param-name>
             <param-value>true</param-value>
         </init-param>
@@ -59,5 +59,13 @@
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
- </filter-mapping> 
+    </filter-mapping>
+
+    <!-- 设置不拦截的静态资源 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/svg/*</url-pattern>
+        <url-pattern>favicon.ico</url-pattern>
+    </servlet-mapping>
+
 </web-app>
