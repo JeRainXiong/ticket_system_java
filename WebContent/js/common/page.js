@@ -121,7 +121,7 @@ function UserComponent() {
 		logoutURL: "/login/dologout",
 		registerURL: '/register/doregister',
 		makeOrderURL:'/buy/makeorder',
-		uploadPhotoURL:'/account/uploadPhotoAjax'
+		//uploadPhotoURL:'/account/uploadPhotoAjax'
 	}
 }
 UserComponent.prototype.login = function(username, password) {
@@ -200,7 +200,7 @@ UserComponent.prototype.preorder = function(concert_id, ticket_type_id) {
 	}
 	window.open('/buy/order?concert_id=' + concert_id + '&ticket_type_id=' + ticket_type_id);
 };
-UserComponent.prototype.makeOrder = function(concert_id,ticket_type_id,name,telphone,idCardNum,photo_path){
+UserComponent.prototype.makeOrder = function(concert_id,ticket_type_id,name,telphone,idCardNum){
 		$.ajax({
 		url: this.API.makeOrderURL,
 		type: 'post',
@@ -210,7 +210,7 @@ UserComponent.prototype.makeOrder = function(concert_id,ticket_type_id,name,telp
             'name':name,
             'tel':telphone,
             'id_card':idCardNum,
-            'photo_path':photo_path
+            //'photo_path':photo_path
 		},
 		success: function(data) {
 			var data = JSON.parse(data);
@@ -226,6 +226,7 @@ UserComponent.prototype.makeOrder = function(concert_id,ticket_type_id,name,telp
 		}
 	});
 }
+/*
 UserComponent.prototype.uploadPhoto = function(formdata,callBack){
 		$.ajax({
 		url: this.API.uploadPhotoURL,
@@ -251,6 +252,7 @@ UserComponent.prototype.uploadPhoto = function(formdata,callBack){
 		}
 	});
 }
+*/
 
 function PageController(){
 
@@ -312,8 +314,8 @@ PageController.prototype.init = function() {
  	  	   	var idCardNum = $('#comfirm-qpfsList-container .shipment-idCardNum').val();
  	  	   	var concert_id = $('#comfirm-show-container').attr('concert_id');
  	  	   	var ticket_type_id = $('#comfirm-show-container').attr('ticket_type_id');
- 	  	   	var photo_path = $('#photo_url').val();
- 	  	   	_self.User.makeOrder(concert_id,ticket_type_id,name,telphone,idCardNum,photo_path);
+ 	  	   	//var photo_path = $('#photo_url').val();
+ 	  	   	_self.User.makeOrder(concert_id,ticket_type_id,name,telphone,idCardNum);
  	  	 }),
  	  	 $("#js_search_btn").click(function(){
  	  	 	var key_word = $(".search-text").val();
@@ -321,8 +323,9 @@ PageController.prototype.init = function() {
 			encodeURIComponent(key_word);
 			window.location.href = "/search/s?key_word=" + key_word;
 		}
- 	  	 }),
- 	  	 $('#js_uploadPhoto').click(function(){
+ 	  	 });
+
+ 	  	 /*$('#js_uploadPhoto').click(function(){
 			var animateimg = $("#photoPath").val(); //获取上传的图片名 带//  
 			if(animateimg == '') return app.alertMsg("请选择文件"); 
 		    var imgarr=animateimg.split('\\'); //分割  
@@ -347,7 +350,7 @@ PageController.prototype.init = function() {
             	    $('#photo_url').val(data['data']['photo_url']);  					
 				});   
 		    }   	
- 	  	 });    
+ 	  	 });   */ 
 		
 
     $('#sessionPar-container .list-one').eq(0).click();
