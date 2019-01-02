@@ -8,7 +8,7 @@
 
 
 
-<div class="show-detail-page" concert_id = '${concertId}'>
+<div class="show-detail-page" concert_id = '${concert.concertId}'>
     <div class="breadcrumb">
         <ul class="container">
             <li><a href="/">首页<span>&gt;</span></a></li>
@@ -107,8 +107,8 @@
     <ul>
         
         <li>
-            <div class="normal-list-item list-one active" data-id="" data-time="${concertTime}">
-                <p>${concertTime}</p>
+            <div class="normal-list-item list-one active" data-id="" data-time="${concert.concertTime}">
+                <p>${concert.concertTime}</p>
                 <!--<i class="icon icon-express-corner"></i>-->
             </div>
         </li>
@@ -126,7 +126,7 @@
     
     <ul class="seatPlan-txt">
     
-    	<c:forEach items="${ticketTypeList}" var="${ticketType}">
+    	<c:forEach items="${ticketTypeList}" var="ticketType">
         <li class="relative ">
             
             <div class="ticket normal-list-item list-one" data-id="${ticketType.ticketTypeId}" data-price="${ticketType.unitPrice}">

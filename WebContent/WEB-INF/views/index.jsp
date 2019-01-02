@@ -27,7 +27,7 @@
             <c:if test = "${ concertList != null}" >
             	<c:forEach items = "${concertList}" var = "concert" >
 
-                        <a target="_blank" href="/content/c?concert=${concert.concertId}" class="section-show sa_recent">
+                        <a target="_blank" href="/content?concertId=${concert.concertId}" class="section-show sa_recent">
                             <div class="image-holder">
                                 <img src="${concert.concertImg}" alt="${concert.concertName}">
                             </div>
@@ -156,5 +156,7 @@
  <%@ include file="common/login.jsp" %>
 
 <script type="text/javascript" src="js/common/page.js"></script>
+</body>
+</html>
 </body>
 </html>

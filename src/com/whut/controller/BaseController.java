@@ -86,9 +86,9 @@ public class BaseController {
 /**
  * 提示信息
  * @author 熊泽雨    
- * @param message
- * @param jumpUrl
- * @param waitTime
+ * @param message 错误信息
+ * @param jumpUrl 跳转路径
+ * @param waitTime  等待时间
  * @return
  */
     protected String showMessage(String message, String jumpUrl,int waitTime)

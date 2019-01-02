@@ -21,6 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select * from ticket where order_id = #{id}
 	</select>
 	
+	<select id="getTicketTypeListByConcert" resultType="TicketType" parameterType="int">
+	    select * from ticket_type where concert_id = #{id}
+	</select>
 	<insert id="insert" parameterType="Ticket">
 	    insert into ticket values(null,#{orderId}
 	    ,#{seatId},#{ticketTypeId},

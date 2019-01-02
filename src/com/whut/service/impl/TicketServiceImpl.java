@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.whut.dao.TicketDao;
 import com.whut.entity.SeatStatic;
 import com.whut.entity.Ticket;
+import com.whut.entity.TicketType;
 import com.whut.service.TicketService;
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -54,6 +55,11 @@ public class TicketServiceImpl implements TicketService {
 	public int deleteById(int ticketId) {
 		// TODO Auto-generated method stub
 		return dao.deleteById(ticketId);
+	}
+	
+	@Override
+	public List<TicketType> getTicketTypeListByConcert(int concertId){
+		return dao.getTicketTypeListByConcert(concertId);
 	}
 
 	@Override

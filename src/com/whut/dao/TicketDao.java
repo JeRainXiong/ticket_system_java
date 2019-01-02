@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.whut.entity.SeatStatic;
 import com.whut.entity.Ticket;
+import com.whut.entity.TicketType;
 
 public interface TicketDao {
 	public List<Ticket> listAll();
@@ -15,7 +16,7 @@ public interface TicketDao {
 	public int update(Ticket ticket);
 	public int deleteById(int ticketId);
 	
-	
+	public List<TicketType> getTicketTypeListByConcert(int concertId);
 	public List<SeatStatic> listSeatStaticBySeatLevel(int seatLevel);
 	//public List<Seat>;
 }
