@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.dao.TicketTypeDao">
+
+	<select id="getByTypeId" resultType="TicketType" parameterType="int">
+	    select * from ticket_type where ticket_type_id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="TicketType">
+	    insert into ticket_type values(null,#{concertId}
+	    ,#{concert},#{concertTime},
+	    #{seatLevel},#{unitPrice},#{totalNum},#{restNum}
+	    )
+	</insert>
+	
+	<update id="update">
+	    update ticket_type
+	    <set>
+	        concert_id = #{concertId},concert_name = #{concert},concert_time = #{concertTime},
+	        seat_level = #{seatLevel},unit_privce = #{unitPrice},total_num = #{totalNum},
+	        rest_num = #{restNum}
+	    </set>
+	    where ticket_type_id = #{id}
+	</update>
+	
+	<delete id="deleteByTypeId" parameterType="int">
+	    delect from ticket_type where ticket_type_id = #{id}
+	</delete>
+	
+</mapper> 
