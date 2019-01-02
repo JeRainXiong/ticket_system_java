@@ -5,7 +5,9 @@ import java.util.Date;
 public class Order{
     private int orderId;
     private int userId;
-
+    private int concertId;
+    private int ticketId;
+    private int ticketTypeId;
     private String realname;
     private String idCard;
     private String tel;
@@ -130,30 +132,67 @@ public class Order{
 	}
 
 
-	public Order(int orderId, int userId, String realname, String idCard, String tel, float amount, int paymentStatus,
-			Date createTime, Date finishTime, int orderState, String orderToken) {
-		super();
-		this.orderId = orderId;
-		this.userId = userId;
-		this.realname = realname;
-		this.idCard = idCard;
-		this.tel = tel;
-		this.amount = amount;
-		this.paymentStatus = paymentStatus;
-		this.createTime = createTime;
-		this.finishTime = finishTime;
-		this.orderState = orderState;
-		this.orderToken = orderToken;
-	}
+    public int getConcertId() {
+        return concertId;
+    }
 
 
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", userId=" + userId + ", realname=" + realname + ", idCard=" + idCard
-				+ ", tel=" + tel + ", amount=" + amount + ", paymentStatus=" + paymentStatus + ", createTime="
-				+ createTime + ", finishTime=" + finishTime + ", orderState=" + orderState + ", orderToken="
-				+ orderToken + "]";
-	}
-	
+    public void setConcertId(int concertId) {
+        this.concertId = concertId;
+    }
+
+
+    public int getTicketId() {
+        return ticketId;
+    }
+
+
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
+    }
+
+
+    public int getTicketTypeId() {
+        return ticketTypeId;
+    }
+
+
+    public void setTicketTypeId(int ticketTypeId) {
+        this.ticketTypeId = ticketTypeId;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Order [orderId=" + orderId + ", userId=" + userId + ", concertId=" + concertId + ", ticketId="
+                + ticketId + ", ticketTypeId=" + ticketTypeId + ", realname=" + realname + ", idCard=" + idCard
+                + ", tel=" + tel + ", amount=" + amount + ", paymentStatus=" + paymentStatus + ", createTime="
+                + createTime + ", finishTime=" + finishTime + ", orderState=" + orderState + ", orderToken="
+                + orderToken + "]";
+    }
+
+
+    public Order(int orderId, int userId, int concertId, int ticketId, int ticketTypeId, String realname, String idCard,
+            String tel, float amount, int paymentStatus, Date createTime, Date finishTime, int orderState,
+            String orderToken) {
+        super();
+        this.orderId = orderId;
+        this.userId = userId;
+        this.concertId = concertId;
+        this.ticketId = ticketId;
+        this.ticketTypeId = ticketTypeId;
+        this.realname = realname;
+        this.idCard = idCard;
+        this.tel = tel;
+        this.amount = amount;
+        this.paymentStatus = paymentStatus;
+        this.createTime = createTime;
+        this.finishTime = finishTime;
+        this.orderState = orderState;
+        this.orderToken = orderToken;
+    }
+
+
+
 	
 }

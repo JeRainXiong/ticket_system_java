@@ -50,12 +50,12 @@
 <c:when test="${orderList!=null}">
     <c:forEach items="${orderList}" var="order">
     <div class="order_item">
-          <p style="font-size: 13px;color: #fd6857;"><span class="c_orange">${state[${order.orderState}]}</span></p>
+          <p style="font-size: 13px;color: #fd6857;"><span class="c_orange">${state[order.orderState]}</span></p>
               <ul class="order_item_title clearfix">
                 <li>订单号： ${order.orderId}</li>
                   
                 
-                <li style="float: right;">${order.creatTime}</li>
+                <li style="float: right;">${order.createTime}</li>
               </ul>
 
      <ul class="clearfix">

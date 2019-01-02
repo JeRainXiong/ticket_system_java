@@ -1,15 +1,20 @@
 package com.whut.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.whut.entity.User;
 
 /**
  * 基层控制器，所有控制器继承此控制器
@@ -19,8 +24,21 @@ import com.alibaba.fastjson.JSON;
 public class BaseController {
 	@Autowired  
 	private  HttpServletRequest request;  
-	
-	
+	//protected List<String> _freeActions = Arrays.asList("index","content","Search","register");   	
+    protected User _login_user;
+    /**
+     * 所有控制器启动前做的事
+     * @param model
+     */
+    @ModelAttribute
+    public void init(Model model) {
+//      if(isLogin()){
+//          model.addAttribute("user",request.getSession().getAttribute("user"));
+//        }
+        if(isLogin())
+            _login_user = (User)request.getSession().getAttribute("user");
+        model.addAttribute("title","学霸蟹票务系统");
+    }	
 	/**
 	 * 判断用户是否登陆
 	 * @author 熊泽雨
@@ -98,6 +116,16 @@ public class BaseController {
     	
 
         String script = "<script>setTimeout(function(){location.href = '" + jumpUrl+ "'},"+waitTime+"*1000);</script>";
+        String html = "<b>" + message + "</b></br>"+
+            "不想等待，<a href = '"+ jumpUrl +"'>点击这里</a>";
+        return script+html;
+
+    }
+    @ResponseBody
+    protected String showMessage(String message)
+    {     
+        String jumpUrl = "javascript:history.back();";
+        String script = "<script>setTimeout(function(){location.href = '" + jumpUrl+ "'},3000);</script>";
         String html = "<b>" + message + "</b></br>"+
             "不想等待，<a href = '"+ jumpUrl +"'>点击这里</a>";
         return script+html;

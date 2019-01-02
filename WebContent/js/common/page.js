@@ -321,7 +321,7 @@ PageController.prototype.init = function() {
  	  	 	var key_word = $(".search-text").val();
  	  	 	if ($.trim(key_word)) {
 			encodeURIComponent(key_word);
-			window.location.href = "/search/s?key_word=" + key_word;
+			window.location.href = "/search?key_word=" + key_word;
 		}
  	  	 });
 

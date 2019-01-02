@@ -18,7 +18,7 @@
             </div>
             <div class="shows-container">
 <c:choose> 
-	<c:when test="${concertList!=null}"> 
+	<c:when test="${not empty concertList}"> 
 		<c:forEach items="${concertList }" var="concert">
  
 

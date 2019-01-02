@@ -6,11 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.whut.dao.OrderDao">
 
 	<select id="listAll"  resultType="Order">
-		select * from order order by finish_time DESC
+		select * from `order` order by finish_time DESC
 	</select>
 	
 	<select id="listPage" resultType="Order" parameterType="map">
-	    select *from order LIMIT #{begin}, #{rows} order by finish_time DESC
+	    select *from `order` LIMIT #{begin}, #{rows} order by finish_time DESC
 	</select>
 	
 	<select id="count" resultType="int">
@@ -18,12 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getById" resultType="Order" parameterType="int">
-	    select * from order where order_id = #{id}
+	    select * from `order` where order_id = #{id}
 	</select>
 	
 	<insert id="insert" parameterType="Order">
-	    insert into order values(null,#{userId}
-	    ,#{realname},#{idCard},
+	    insert into `order` values(null,#{userId}
+	    ,#{concertId},#{ticketId},#{ticketTypeId},#{realname},#{idCard},
 	    #{tel},#{amount},#{paymentStatus},#{createTime},
 	    #{finishTime},#{orderState},#{orderToken}
 	    )
@@ -32,7 +32,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update">
 	    update order
 	    <set>
-	        user_id = #{userId},realname = #{realname},id_card = #{idCard},
+	        user_id = #{userId},concert_id = #{concertId},
+	        ticket_id = #{ticketId},ticket_type_id = #{ticketTypeId},
+	        realname = #{realname},id_card = #{idCard},
 	    tel = #{tel},amount = #{amount},payment_sate = #{paymentStatus},
 	    create_time = #{createTime},finish_time = #{finishTime},
 	    order_state = #{orderState},order_token = #{orderToken}
