@@ -14,4 +14,11 @@ public interface OrderDao {
 	public int insert(Order order);
 	public int update(Order order);
 	public int deleteById(int orderId);
+	
+	/**
+	 * 根据Userid查对应的orders，参数有userId和分页参数
+	 * @param map
+	 * @return
+	 */
+    public List<Order> listByUserId(Map map);
 }
