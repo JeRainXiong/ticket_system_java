@@ -14,14 +14,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="count" resultType="int">
-	    select count(*) from order
+	    select count(*) from `order`
 	</select>
 	
 	<select id="getById" resultType="Order" parameterType="int">
 	    select * from `order` where order_id = #{id}
 	</select>
 	
-	<insert id="insert" parameterType="Order">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="orderId" parameterType="Order">
 	    insert into `order` values(null,#{userId}
 	    ,#{concertId},#{ticketId},#{ticketTypeId},#{realname},#{idCard},
 	    #{tel},#{amount},#{paymentStatus},#{createTime},

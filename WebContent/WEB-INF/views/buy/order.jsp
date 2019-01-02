@@ -14,9 +14,9 @@
       <div class="comfirm-aside-inner">
         <div id="comfirm-show-container" concert_id = '${concertId}' ticket_type_id = '${ticketTypeId}'>
     <div class="ticket-main">
-        <a href="/content/c?concert=${concert.concertId}" target="_blank"><img src="${concert.concertImg}" alt="${concert.concertName}" width="85" height="109"></a>
+        <a href="/content?concertId=${concert.concertId}" target="_blank"><img src="${concert.concertImg}" alt="${concert.concertName}" width="85" height="109"></a>
         <div class="ticket-show-desc">
-            <span style="color: #323232;">${concertName}</span>
+            <span style="color: #323232;">${concert.concertName}</span>
             
             <br><br><span style="color: #A5A4A5;">本票品由票务销售提供</span>
             
@@ -24,7 +24,7 @@
     </div>
     <div class="ticket-show-detail" style="position:relative;">
         <div>票面：<span>${ticketMoney} 元</span></div>
-        <div>地点：<span>${concertAddr}<span></div>
+        <div>地点：<span>${concertAddr}</span></div>
         <div>时间：<span>${concertTime}</span></div>
         <div>数量：<span>1&nbsp;&nbsp;张</span></div>
         <div class="ticket-circle-left"></div>
