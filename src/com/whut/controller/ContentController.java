@@ -30,7 +30,7 @@ public class ContentController extends BaseController {
 	   ticketTypeList=ticketServiceImpl.getTicketTypeListByConcert(concertId);
 //       System.out.println("100"+ticketTypeList);
 	   if(thisConcert==null)
-		   showMessage("未查询到该演唱会","/index",2);
+		   return showMessage("未查询到该演唱会",model);
 	   model.addAttribute("ticketTypeList",ticketTypeList);
 	   model.addAttribute("concert", thisConcert);
        return new ModelAndView("content");

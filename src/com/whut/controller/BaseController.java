@@ -1,8 +1,6 @@
 package com.whut.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.whut.entity.User;
@@ -109,23 +108,23 @@ public class BaseController {
  * 提示信息
  * @author 熊泽雨    
  * @param message 错误信息
- * @param jumpUrl 跳转路径
- * @param waitTime  等待时间
  * @return
  */
-    protected String showMessage(String message, String jumpUrl,int waitTime)
+    protected ModelAndView showMessage(String message, Model model)
     {     
-    	if(jumpUrl==null || jumpUrl.equals(""))
+/*    	if(jumpUrl==null || jumpUrl.equals(""))
     		jumpUrl = "javascript:history.back();";
     	
 
         String script = "<script>setTimeout(function(){location.href = '" + jumpUrl+ "'},"+waitTime+"*1000);</script>";
         String html = "<b>" + message + "</b></br>"+
-            "不想等待，<a href = '"+ jumpUrl +"'>点击这里</a>";
-        return script+html;
+            "不想等待，<a href = '"+ jumpUrl +"'>点击这里</a>";*/
+        System.out.println(message);
+        model.addAttribute("message", message);
+        return new ModelAndView("error");
 
     }
-    @ResponseBody
+/*    @ResponseBody
     protected String showMessage(String message)
     {     
         String jumpUrl = "javascript:history.back();";
@@ -133,6 +132,19 @@ public class BaseController {
         String html = "<b>" + message + "</b></br>"+
             "不想等待，<a href = '"+ jumpUrl +"'>点击这里</a>";
         return script+html;
+        
 
-    }
+    }*/
+    /**
+     * 提示信息
+     * @author 熊泽雨    
+     * @param message 错误信息
+     * @return
+     */
+        protected ModelAndView showMessage(String message)
+        {     
+            System.out.println(message);
+            return new ModelAndView("error");
+
+        }
 }

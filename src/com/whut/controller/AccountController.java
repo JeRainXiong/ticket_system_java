@@ -49,15 +49,8 @@ public class AccountController extends BaseController {
     public void init(Model model) {
         super.init(model);
         if(!isLogin()){
-            showMessage("用户未登录","/index",3);
-            try {
-                response.sendRedirect("/index");
-            } catch (IOException e) {
-                // TODO 自动生成的 catch 块
-                e.printStackTrace();
-            }
- 
-  
+            showMessage("用户未登录");
+            return;
         }
    
     }  
@@ -70,7 +63,7 @@ public class AccountController extends BaseController {
     public ModelAndView order(Integer page,Model model){  
         if(page==null)page=1;
         User user = this._login_user;
-        if(user==null)return new ModelAndView("redirect:index");
+        if(user==null)return new ModelAndView("redirect:/index");
         List<Order> orderList = new ArrayList<Order>();//这个是获取的list
         List<Map> list = new ArrayList<Map>();//这个是传过去的list
         orderList = ServiceO.listByUserId(user.getUserId(), page, 10);//一页十个数据
@@ -80,14 +73,14 @@ public class AccountController extends BaseController {
                 Map<String,Object> orderMap = Bean2Map.bean2map(order);//转map 并插入concert
                 Concert concert;
                 concert = ServiceC.getById(order.getConcertId());
-                System.out.println(concert);
+                //System.out.println(concert);
                 orderMap.put("concert",concert);
                 list.add(orderMap);
                     
             }
         }
         
-        System.out.println(list);
+        //System.out.println(list);
         model.addAttribute("orderList",list);
         model.addAttribute("title","我的订单");
         model.addAttribute("state",_state);
