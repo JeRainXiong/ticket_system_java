@@ -76,7 +76,7 @@
                    <div style="margin-top: 5px;margin-bottom:31px;font-size: 17px;color: #505050;">订单详情</div>
                    <a href="/content?concertId=${concert.concertId}"><img src="${concert.concertImg}" width="100" height="128" alt="${concert.concertName}" title="${concert.concertName}"></a>
                    <ul class="orderDet_show_info">
-                      <li class="orderDet_showname"><a href="/content/c?concert=${concert.concertId}">${concert.concertName}</a></li>
+                      <li class="orderDet_showname"><a href="/content?concertId=${concert.concertId}">${concert.concertName}</a></li>
                       <li>票价：￥ ${order.ticketType.unitPrice}  x 1张</li>
                       <li>时间：${concert.concertTime}</li>
                       <li>场馆：${concert.concertAddr}</li>
@@ -87,7 +87,7 @@
                       </li>
                     </ul>
                   </div>
-              </div>
+              </div> 
               
                <!--收货地址信息 -->
               <div class="orderDet_addr_wrap">

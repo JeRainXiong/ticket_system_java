@@ -3,6 +3,7 @@
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ include file="common/head.jsp" %>
     <script src="/js/html2canvas.min.js"></script>
+    <script src="/js/jquery.qrcode.min.js"></script>
     <style type="text/css">
     div{
         width: 100%;
@@ -17,18 +18,21 @@
     text-align:center;
   }
   .ticket_right{
-    width:250px;
-    float: left
+    width:256px;
+    float: left;
+   
   }
     .ticket_mid{
         width:500px;
         float: left;
+       
   }
     .ticket_left{
-        width:170px;
-        height: 250px;
+        width:175px;
+        height: 256px;
     float: left;
   }
+  
 </style>
 </head>
 
@@ -44,16 +48,19 @@
 
                 <li>时间：${ticket.concertTime}</li>
                 <li>场馆：${ticket.concertAddr}</li>
-                <li>座位号：${ticket.seatId} </li>
+                <li>座位:第${seatStatic.row }排 第${seatStatic.column }号 </li>
+                <li>入口：${seatStatic.entrance }</li>
                 </ul>
             </div>                      
-            <div class = "ticket_right">
-                 <img src="data:image/png;base64,${pngBase64 }" alt="票" width="250px" height="250px">
+            <div id = "qrimg" class = "ticket_right">
+            
             </div>
         </div>
         <a id='print' class="btn" href="javascript:;">打印电子票</a>
     </div>
-    
+ <div id = "qrString" style="display: none">
+      ${qrString}
+  </div>      
     
 </body>
 <script type="text/javascript">
@@ -74,10 +81,10 @@
          save_link.download = filename;
 
          var event = document.createEvent('MouseEvents');
-         event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, );
+         event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0 );
          save_link.dispatchEvent(event);
      };
-
+     $('#qrimg').qrcode($("#qrString").text()); 
 
  });
 </script>

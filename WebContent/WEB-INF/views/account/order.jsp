@@ -65,7 +65,7 @@
             </a>
 
             <ul class="order_show_info">
-                <li><a href="/content/c?concert=${order.concertId}" target="_blank"><span style="font-size: 13px;color: #505050;font-weight:bold;line-height: 18px;display:block;margin-left: -5px;margin-bottom: 5px;">${order.concert.concertName} </span></a></li>
+                <li><a href="/content?concertId=${order.concertId}" target="_blank"><span style="font-size: 13px;color: #505050;font-weight:bold;line-height: 18px;display:block;margin-left: -5px;margin-bottom: 5px;">${order.concert.concertName} </span></a></li>
                 <!-- <li>票面：<span class="order_detailinfo_color">280</span></li> -->
                 <li>说明：<span class="order_detailinfo_color"></span> </li>
                 <li>数量：<span class="order_detailinfo_color">1&nbsp;张</span> </li>
