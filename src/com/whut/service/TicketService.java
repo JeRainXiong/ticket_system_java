@@ -20,4 +20,5 @@ public interface TicketService {
 	public List<SeatStatic> listSeatStaticBySeatLevel(int seatLevel);
 	
 	public SeatStatic getRandomSeat(int ticketType);
-}
+	public SeatStatic getSeatStaticById(int id);
+	}

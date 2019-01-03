@@ -108,4 +108,10 @@ public class TicketServiceImpl implements TicketService {
         return seat_static_list.isEmpty()? null:seat_static_list.get(r.nextInt(seat_static_list.size()));
     }
 
+    @Override
+    public SeatStatic getSeatStaticById(int id) {
+        
+        return seatStaticDao.getById(id);
+    }
+
 }
