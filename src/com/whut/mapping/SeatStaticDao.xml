@@ -9,6 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select * from seat_static where seat_static_id = #{id}
 	</select>
 	
+    <select id="listBySeatLevel" resultType="SeatStatic" parameterType="int">
+        select * from seat_static where seat_level = #{seatLevel}
+    </select>	
+    
 	<insert id="insert" parameterType="SeatStatic">
 	    insert into seat_static values(null,#{venueId}
 	    ,#{row},#{column},

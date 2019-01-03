@@ -24,9 +24,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTicketTypeListByConcert" resultType="TicketType" parameterType="int">
 	    select * from ticket_type where concert_id = #{id}
 	</select>
-	<insert id="insert" useGeneratedKeys="true" keyProperty="ticketId" parameterType="Ticket">
+	
+    <select id="listChoosen" resultType="Ticket" parameterType="map">
+        select * from ticket 
+        where ticket_type_id = #{ticketTypeId}
+        AND (ticket_state = 0 OR ticket_state = 1)
+        
+    </select>	
+	
+	
+	
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="ticketId" parameterType="Ticket">
 	    insert into ticket values(null,#{orderId}
-	    ,#{seatId},#{ticketTypeId},
+	    ,#{seatStaticId},#{ticketTypeId},
 	    #{concertId},#{concertName},#{concertTime},#{concertAddr},
 	    #{userId},#{idCard},#{realName},#{createTime},
 	    #{checkCode},#{ticketToken},#{ticketState}
@@ -36,10 +46,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update">
 	    update ticket
 	    <set>
-	        order_id = #{orderId},seat_static_id = #{seatId},ticket_type_id = #{ticketTypeId},
+	        order_id = #{orderId},seat_static_id = #{seatStaticId},ticket_type_id = #{ticketTypeId},
 	        concert_id = #{concertId},concert_name = #{concertName},concert_time = #{concertTime},
 	        concert_addr = #{concertAddr},user_id = #{userId},id_card = #{idCard},
-	        realname = #{realName},create_time = #{createTime},check_code = #{checkCode},
 	        ticket_token = #{ticketToken},ticket_state = #{ticketState}
 	    </set>
 	    where ticket_id = #{id}

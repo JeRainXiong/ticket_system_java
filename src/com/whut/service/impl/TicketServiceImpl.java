@@ -1,12 +1,16 @@
 package com.whut.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.whut.dao.SeatStaticDao;
 import com.whut.dao.TicketDao;
+import com.whut.dao.TicketTypeDao;
 import com.whut.entity.SeatStatic;
 import com.whut.entity.Ticket;
 import com.whut.entity.TicketType;
@@ -15,6 +19,10 @@ import com.whut.service.TicketService;
 public class TicketServiceImpl implements TicketService {
 	@Autowired
 	TicketDao dao;
+    @Autowired
+    SeatStaticDao seatStaticDao;	
+    @Autowired
+    TicketTypeDao ticketTypeDao;    
 	@Override
 	public List<Ticket> listAll() {
 		// TODO Auto-generated method stub
@@ -74,22 +82,30 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public SeatStatic getRandomSeat(int ticketTypeId) {
+  
         if(ticketTypeId==0) return null;
-        $md = new TicketModel();
-        $condition = empty($seat_level) ? []:['seat_level'=>$seat_level];
-        $seat_static_list = $md->getSeatStaticList($condition);
-        if(empty($seat_static_list)) return false;
+        TicketType ticketType = ticketTypeDao.getByTypeId(ticketTypeId);
         
-        $condition['concert_id']=$concert_id;
-        $condition['seat_state']=1;
-        $seat_list = $md->getSeatList($condition);
-        if(!empty($seat_list))
-            foreach ($seat_list as $value) {
-                    $id = $value['seat_id'];
-                    unset($seat_static_list[(int)$id]);                    
+        //$condition = empty($seat_level) ? []:['seat_level'=>$seat_level];
+        List<SeatStatic> seat_static_list = seatStaticDao.listBySeatLevel(ticketType.getSeatLevel());
+        //所有符合当前票价的座位
+        if(seat_static_list.isEmpty()) return null;
+        
+
+        //已被选择的座位
+        Map map = new HashMap();
+        map.put("ticketTypeId",ticketTypeId);
+
+        List<Ticket> ticket_list = dao.listChoosen(map);
+        
+        
+        //去除被选的座位
+            for (Ticket ticket : ticket_list) {
+                   seat_static_list.remove(ticket.getSeatStaticId()-1);
             }
-        return empty($seat_static_list) ? false:$seat_static_list[array_rand($seat_static_list)];
-        return null;
+        Random r =new Random();
+        
+        return seat_static_list.isEmpty()? null:seat_static_list.get(r.nextInt(seat_static_list.size()));
     }
 
 }

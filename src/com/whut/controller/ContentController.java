@@ -32,7 +32,9 @@ public class ContentController extends BaseController {
 	   if(thisConcert==null)
 		   return showMessage("未查询到该演唱会",model);
 	   model.addAttribute("ticketTypeList",ticketTypeList);
+	   System.out.println(ticketTypeList);
 	   model.addAttribute("concert", thisConcert);
+	   model.addAttribute("title", thisConcert.getConcertName());
        return new ModelAndView("content");
     }
 	

@@ -12,7 +12,7 @@ public class Order{
     private String idCard;
     private String tel;
     private float amount;
-    private int paymentStatus;
+    private int paymentState;
     private Date createTime;
     private Date finishTime;
     private int orderState;
@@ -82,13 +82,13 @@ public class Order{
 	}
 
 
-	public int getPaymentStatus() {
-		return paymentStatus;
+	public int getPaymentState() {
+		return paymentState;
 	}
 
 
-	public void setPaymentStatus(int paymentStatus) {
-		this.paymentStatus = paymentStatus;
+	public void setPaymentState(int paymentState) {
+		this.paymentState = paymentState;
 	}
 
 
@@ -166,14 +166,14 @@ public class Order{
     public String toString() {
         return "Order [orderId=" + orderId + ", userId=" + userId + ", concertId=" + concertId + ", ticketId="
                 + ticketId + ", ticketTypeId=" + ticketTypeId + ", realname=" + realname + ", idCard=" + idCard
-                + ", tel=" + tel + ", amount=" + amount + ", paymentStatus=" + paymentStatus + ", createTime="
+                + ", tel=" + tel + ", amount=" + amount + ", paymentState=" + paymentState + ", createTime="
                 + createTime + ", finishTime=" + finishTime + ", orderState=" + orderState + ", orderToken="
                 + orderToken + "]";
     }
 
 
     public Order(int orderId, int userId, int concertId, int ticketId, int ticketTypeId, String realname, String idCard,
-            String tel, float amount, int paymentStatus, Date createTime, Date finishTime, int orderState,
+            String tel, float amount, int paymentState, Date createTime, Date finishTime, int orderState,
             String orderToken) {
         super();
         this.orderId = orderId;
@@ -185,7 +185,7 @@ public class Order{
         this.idCard = idCard;
         this.tel = tel;
         this.amount = amount;
-        this.paymentStatus = paymentStatus;
+        this.paymentState = paymentState;
         this.createTime = createTime;
         this.finishTime = finishTime;
         this.orderState = orderState;

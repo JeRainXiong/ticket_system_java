@@ -1,5 +1,6 @@
 package com.whut.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.whut.dao.OrderDao;
+import com.whut.dao.TicketTypeDao;
 import com.whut.entity.Order;
+import com.whut.entity.SeatStatic;
+import com.whut.entity.TicketType;
 import com.whut.service.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	OrderDao dao;
+    @Autowired
+    TicketServiceImpl ServiceT;
+    @Autowired
+    TicketTypeDao ticketTypeDao;
 	@Override
 	public List<Order> listAll() {
 		// TODO Auto-generated method stub
@@ -67,11 +75,36 @@ public class OrderServiceImpl implements OrderService {
         // TODO Auto-generated method stub
         return dao.listByUserId(map);
     }
-
+/**
+ * 创建订单
+ */
     @Override
     public boolean createOrder(Order order) {
+        if(order == null)return false;
+        TicketType ticketType = ticketTypeDao.getByTypeId(order.getTicketTypeId());
+        if(ticketType.getRestNum()<=0)return false;
+        SeatStatic ss =  ServiceT.getRandomSeat(order.getTicketTypeId());
+        if(ss ==null ) return false;
         
-        return false;
+        ticketType.setRestNum(ticketType.getRestNum()-1);
+        System.out.println("更新ticketType表");
+        System.out.println(ticketType);
+        if(ticketTypeDao.update(ticketType)==0)return false;//更新失败
+        System.out.println("插入order");
+        if(dao.insert(order)==0)return false;
+        return true;
     }
-
+    /**
+     * 完成订单
+     */
+        public boolean finishOrder(Order order){
+            if(order == null)return false;
+            order.setOrderState(1);
+            order.setPaymentState(1);
+            order.setFinishTime(new Date());
+            
+            //若更新失败
+            if(dao.update(order)==0)return false;
+            return true;
+        }
 }

@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 	    select * from concert where concert_name = #{username} -->
 <!-- 	</select> -->
 	
-	<insert id="insert" parameterType="Concert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="seatStaticId" parameterType="Concert">
 	    insert into concert values(null,#{concertName},#{concertTime},#{concertStar},
 	    #{concertAddr},#{concertImg},#{concertDecription},#{concertLowerPrice})
 	</insert>

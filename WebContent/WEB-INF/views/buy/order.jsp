@@ -12,7 +12,7 @@
   <div class="comfirm w clearfix">
     <div class="w315 fr comfirm-aside">
       <div class="comfirm-aside-inner">
-        <div id="comfirm-show-container" concert_id = '${concertId}' ticket_type_id = '${ticketTypeId}'>
+        <div id="comfirm-show-container" concert_id = '${concert.concertId}' ticket_type_id = '${ticketTypeId}'>
     <div class="ticket-main">
         <a href="/content?concertId=${concert.concertId}" target="_blank"><img src="${concert.concertImg}" alt="${concert.concertName}" width="85" height="109"></a>
         <div class="ticket-show-desc">
@@ -24,8 +24,8 @@
     </div>
     <div class="ticket-show-detail" style="position:relative;">
         <div>票面：<span>${ticketMoney} 元</span></div>
-        <div>地点：<span>${concertAddr}</span></div>
-        <div>时间：<span>${concertTime}</span></div>
+        <div>地点：<span>${concert.concertAddr}</span></div>
+        <div>时间：<span>${concert.concertTime}</span></div>
         <div>数量：<span>1&nbsp;&nbsp;张</span></div>
         <div class="ticket-circle-left"></div>
         <div class="ticket-circle-right"></div>

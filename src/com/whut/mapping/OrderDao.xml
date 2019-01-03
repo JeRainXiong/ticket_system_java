@@ -21,10 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select * from `order` where order_id = #{id}
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="`" parameterType="Order">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="orderId" parameterType="Order">
 	    insert into `order` values(null,#{userId}
 	    ,#{concertId},#{ticketId},#{ticketTypeId},#{realname},#{idCard},
-	    #{tel},#{amount},#{paymentStatus},#{createTime},
+	    #{tel},#{amount},#{paymentState},#{createTime},
 	    #{finishTime},#{orderState},#{orderToken}
 	    )
 	</insert>
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        user_id = #{userId},concert_id = #{concertId},
 	        ticket_id = #{ticketId},ticket_type_id = #{ticketTypeId},
 	        realname = #{realname},id_card = #{idCard},
-	    tel = #{tel},amount = #{amount},payment_sate = #{paymentStatus},
+	    tel = #{tel},amount = #{amount},payment_state = #{paymentState},
 	    create_time = #{createTime},finish_time = #{finishTime},
 	    order_state = #{orderState},order_token = #{orderToken}
 	    </set>

@@ -9,9 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select * from ticket_type where ticket_type_id = #{id}
 	</select>
 	
-	<insert id="insert" parameterType="TicketType">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="ticketTypeId" parameterType="TicketType">
 	    insert into ticket_type values(null,#{concertId}
-	    ,#{concert},#{concertTime},
+	    ,#{concertName},#{concertTime},
 	    #{seatLevel},#{unitPrice},#{totalNum},#{restNum}
 	    )
 	</insert>
@@ -19,15 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update">
 	    update ticket_type
 	    <set>
-	        concert_id = #{concertId},concert_name = #{concert},concert_time = #{concertTime},
-	        seat_level = #{seatLevel},unit_privce = #{unitPrice},total_num = #{totalNum},
+	        concert_id = #{concertId},concert_name = #{concertName},concert_time = #{concertTime},
+	        seat_level = #{seatLevel},unit_price = #{unitPrice},total_num = #{totalNum},
 	        rest_num = #{restNum}
 	    </set>
-	    where ticket_type_id = #{id}
+	    where ticket_type_id = #{ticketTypeId}
 	</update>
 	
 	<delete id="deleteByTypeId" parameterType="int">
-	    delete from ticket_type where ticket_type_id = #{id}
+	    delete from ticket_type where ticket_type_id = #{ticketTypeId}
 	</delete>
 	
 </mapper> 

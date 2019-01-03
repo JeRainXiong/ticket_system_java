@@ -18,5 +18,6 @@ public interface TicketDao {
 	
 	public List<TicketType> getTicketTypeListByConcert(int concertId);
 	public List<SeatStatic> listSeatStaticBySeatLevel(int seatLevel);
+	public List<Ticket> listChoosen(Map map);//列出某场被选的座位
 	//public List<Seat>;
 }

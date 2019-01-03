@@ -5,7 +5,7 @@ import java.util.Date;
 public class Ticket{
     private int ticketId;
     private int orderId;
-    private int seatId;
+    private int seatStaticId;
     private int ticketTypeId;
     private int concertId;
     private String concertName;
@@ -23,19 +23,19 @@ public class Ticket{
     
 	@Override
 	public String toString() {
-		return "Ticket [ticketId=" + ticketId + ", orderId=" + orderId + ", seatId=" + seatId + ", ticketTypeId="
+		return "Ticket [ticketId=" + ticketId + ", orderId=" + orderId + ", seatStaticId=" + seatStaticId + ", ticketTypeId="
 				+ ticketTypeId + ", concertId=" + concertId + ", concertName=" + concertName + ", concertTime="
 				+ concertTime + ", concertAddr=" + concertAddr + ", userId=" + userId + ", idCard=" + idCard
 				+ ", realName=" + realName + ", createTime=" + createTime + ", ticketState=" + ticketState
 				+ ", checkCode=" + checkCode + ", ticketToken=" + ticketToken + "]";
 	}
-	public Ticket(int ticketId, int orderId, int seatId, int ticketTypeId, int concertId, String concertName,
+	public Ticket(int ticketId, int orderId, int seatStaticId, int ticketTypeId, int concertId, String concertName,
 			Date concertTime, String concertAddr, int userId, String idCard, String realName, Date createTime,
 			int ticketState, String checkCode, String ticketToken) {
 		super();
 		this.ticketId = ticketId;
 		this.orderId = orderId;
-		this.seatId = seatId;
+		this.seatStaticId = seatStaticId;
 		this.ticketTypeId = ticketTypeId;
 		this.concertId = concertId;
 		this.concertName = concertName;
@@ -61,11 +61,11 @@ public class Ticket{
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
-	public int getSeatId() {
-		return seatId;
+	public int getSeatStaticId() {
+		return seatStaticId;
 	}
-	public void setSeatId(int seatId) {
-		this.seatId = seatId;
+	public void setSeatStaticId(int seatStaticId) {
+		this.seatStaticId = seatStaticId;
 	}
 	public int getTicketTypeId() {
 		return ticketTypeId;
