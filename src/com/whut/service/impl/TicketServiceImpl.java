@@ -67,5 +67,29 @@ public class TicketServiceImpl implements TicketService {
 		// TODO Auto-generated method stub
 		return dao.listSeatStaticBySeatLevel(seatLevel);
 	}
+    /**
+     * 生成随机座位号
+     * @author 熊泽雨
+     * @param 票具体类型
+     */
+    @Override
+    public SeatStatic getRandomSeat(int ticketTypeId) {
+        if(ticketTypeId==0) return null;
+        $md = new TicketModel();
+        $condition = empty($seat_level) ? []:['seat_level'=>$seat_level];
+        $seat_static_list = $md->getSeatStaticList($condition);
+        if(empty($seat_static_list)) return false;
+        
+        $condition['concert_id']=$concert_id;
+        $condition['seat_state']=1;
+        $seat_list = $md->getSeatList($condition);
+        if(!empty($seat_list))
+            foreach ($seat_list as $value) {
+                    $id = $value['seat_id'];
+                    unset($seat_static_list[(int)$id]);                    
+            }
+        return empty($seat_static_list) ? false:$seat_static_list[array_rand($seat_static_list)];
+        return null;
+    }
 
 }

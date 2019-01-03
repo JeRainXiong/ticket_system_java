@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select * from `order` where order_id = #{id}
 	</select>
 	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="orderId" parameterType="Order">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="`" parameterType="Order">
 	    insert into `order` values(null,#{userId}
 	    ,#{concertId},#{ticketId},#{ticketTypeId},#{realname},#{idCard},
 	    #{tel},#{amount},#{paymentStatus},#{createTime},

@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="deleteById" parameterType="int">
-	    delect from user where user_id = #{id}
+	    delete from user where user_id = #{id}
 	</delete>
 	
 	

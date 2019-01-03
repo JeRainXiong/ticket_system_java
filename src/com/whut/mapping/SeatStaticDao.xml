@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.dao.SeatStaticDao">
+
+	<select id="getById" resultType="SeatStatic" parameterType="int">
+	    select * from seat_static where seat_static_id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="SeatStatic">
+	    insert into seat_static values(null,#{venueId}
+	    ,#{row},#{column},
+	    #{entrance}
+	    )
+	</insert>
+	
+	<update id="update" parameterType="SeatStatic">
+	    update seat_static
+	    <set>
+	        seat_static_id = #{seatStaticId},venue_id = #{venueId},row = #{row},
+	        column = #{column},seat_level = #{seatLevel},entrance = #{entrance},
+	    </set>
+	    where seat_static_id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="int">
+	    delete from ticket_type where seat_static_id = #{id}
+	</delete>
+	
+</mapper> 

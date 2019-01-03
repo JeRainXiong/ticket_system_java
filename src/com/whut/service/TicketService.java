@@ -18,4 +18,6 @@ public interface TicketService {
 	
 	public List<TicketType> getTicketTypeListByConcert(int concertId);
 	public List<SeatStatic> listSeatStaticBySeatLevel(int seatLevel);
+	
+	public SeatStatic getRandomSeat(int ticketType);
 }

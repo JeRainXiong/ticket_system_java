@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="deleteByTypeId" parameterType="int">
-	    delect from ticket_type where ticket_type_id = #{id}
+	    delete from ticket_type where ticket_type_id = #{id}
 	</delete>
 	
 </mapper> 

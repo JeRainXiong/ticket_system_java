@@ -68,4 +68,10 @@ public class OrderServiceImpl implements OrderService {
         return dao.listByUserId(map);
     }
 
+    @Override
+    public boolean createOrder(Order order) {
+        
+        return false;
+    }
+
 }

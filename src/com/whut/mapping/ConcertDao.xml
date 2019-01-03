@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<delete id="deleteById" parameterType="int">
-	    delect from concert where concert_id = #{id}
+	    delete from concert where concert_id = #{id}
 	</delete>
 	
 </mapper> 
