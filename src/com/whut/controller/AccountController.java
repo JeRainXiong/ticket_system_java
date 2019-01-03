@@ -1,6 +1,5 @@
 package com.whut.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.whut.entity.Concert;
 import com.whut.entity.Order;
+import com.whut.entity.TicketType;
 import com.whut.entity.User;
 import com.whut.service.impl.ConcertServiceImpl;
 import com.whut.service.impl.OrderServiceImpl;
+import com.whut.service.impl.TicketTypeServiceImpl;
 import com.whut.util.Bean2Map;
 
 @Controller
@@ -27,7 +28,8 @@ public class AccountController extends BaseController {
     OrderServiceImpl ServiceO;
     @Autowired
     ConcertServiceImpl ServiceC;
-        
+    @Autowired
+    TicketTypeServiceImpl ServiceT;       
     protected HashMap<String,String> _state = new HashMap<String, String>(){
         {
         put("0", "待付款");
@@ -55,7 +57,7 @@ public class AccountController extends BaseController {
    
     }  
     /**
-     * 个人订单详情页
+     * 个人订单页
      * @param model
      * @return
      */
@@ -86,6 +88,41 @@ public class AccountController extends BaseController {
         model.addAttribute("state",_state);
         return new ModelAndView("account/order");
     }
-    
+    /**
+     * 订单详情
+     * @param model
+     * @return
+     */
+    @RequestMapping("/orderdetail")
+    public ModelAndView orderdetail(Integer order_id,Model model){  
+        if(this._login_user==null)return this.showMessage("登陆后操作",model);
+        if(order_id==null)
+            return this.showMessage("无数据",model);
+        Order order = ServiceO.getById(order_id);
+        if(order==null){
+            return this.showMessage("未查询到该订单",model);
+        }        
+        if(order.getUserId() != this._login_user.getUserId()){
+            return this.showMessage("没有权限查看此订单",model);
+        }        
+
+        TicketType ticket_type =ServiceT.getByTypeId(order.getTicketTypeId()); 
+        Concert concert =ServiceC.getById(order.getConcertId()); 
+        if(ticket_type==null|| concert==null){
+            return this.showMessage("此订单已无法查看");
+        }
+        
+        Map<String,Object> orderMap = Bean2Map.bean2map(order);//转map 并插入concert
+
+        orderMap.put("concert",concert);
+        orderMap.put("ticket_type",ticket_type);
+
+
+        //System.out.println(list);
+        model.addAttribute("order",orderMap);
+        model.addAttribute("title","订单详情");
+        model.addAttribute("state",_state);
+        return new ModelAndView("account/orderdetail");
+    }    
  
 }

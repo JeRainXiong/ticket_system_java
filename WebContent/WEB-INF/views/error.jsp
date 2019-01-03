@@ -11,6 +11,7 @@
             <a class="back-index-btn" href="/">返回首页</a>
         </div>
     </div>
+     <%@ include file="common/login.jsp" %>
 <script type="text/javascript" src="js/common/page.js"></script>
 </body>
 </html>

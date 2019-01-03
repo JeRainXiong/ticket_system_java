@@ -26,10 +26,10 @@
                 <div style="width:667px;height: 4px;background: #eee;position: relative;left: 114px;top: 65px; z-index: 0;"> </div>
                 <ul class="orderDet_bar clearfix">
                   <li class="p_r_135 od_det_green ">待付<div class="circle_bot od_det_tag"></div></li>
-                  <li class="p_r_135 <c:if test="${order.orderState==1}">'od_det_green'</c:if>">下单<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
-                  <li class="p_r_135<c:if test="${order.orderState==1}">'od_det_green'</c:if>">接单<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
-                  <li class="p_r_135 <c:if test="${order.orderState==1}">'od_det_green'</c:if>">出票<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
-                  <li class = "<c:if test="${order.orderState==1}">'od_det_green'</c:if>">完成<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
+                  <li class="p_r_135 <c:if test="${order.orderState==1}">od_det_green</c:if>">下单<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
+                  <li class="p_r_135 <c:if test="${order.orderState==1}">od_det_green</c:if>">接单<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
+                  <li class="p_r_135 <c:if test="${order.orderState==1}">od_det_green</c:if>">出票<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
+                  <li class = "<c:if test="${order.orderState==1}">od_det_green</c:if>">完成<div class="circle_bot od_det_tag"><span class="active-line"></span></div></li>
                 </ul>
                 
             </div>
@@ -44,7 +44,7 @@
                </div>
                 <div class="orderDet_b_bottom clearfix">
               <ul class="orderDet_msg_warp">
-                <li style="font-size: 18px;color: #f2593f;">${state[${order.orderState}]}<br><br>
+                <li style="font-size: 18px;color: #f2593f;">${state[order.orderState]}<br><br>
                     <!-- <span style="font-size: 13px;color: #65B217;"><i class="orderDet_pre_icon icon icon-prebuy"></i><span id="detail_note">请尽快完成付款，逾期将取消订单</span></span> -->
                 </li>
                 <li class="overdue-container"></li>
@@ -57,7 +57,7 @@
                
                 <div class="orderDet_msg_controll">
                 <p style="width: 100%;display: block" class="clearfix">
-                 <c:if test="${order.orderState=0}">
+                 <c:if test="${order.orderState==0}">
                     <a class="cancel_btn" onclick="$('#cancelOrder_component').show()">取消订单</a>
                         
                         
@@ -78,7 +78,7 @@
                 <div style="border-bottom: 1px solid  #eee;" class="clearfix">
                   <div class="orderDet_show_wrap clearfix">
                    <div style="margin-top: 5px;margin-bottom:31px;font-size: 17px;color: #505050;">订单详情</div>
-                   <a href="/content/c?concert=${concert.concertId}"><img src="${concert.concertImg}" width="100" height="128" alt="${concert,concertName}" title="${concert.concertName}"></a>
+                   <a href="/content?concertId=${concert.concertId}"><img src="${concert.concertImg}" width="100" height="128" alt="${concert.concertName}" title="${concert.concertName}"></a>
                    <ul class="orderDet_show_info">
                       <li class="orderDet_showname"><a href="/content/c?concert=${concert.concertId}">${concert.concertName}</a></li>
                       <li>票价：￥ ${order.ticketType.unitPrice}  x 1张</li>
@@ -125,7 +125,7 @@
                     	<c:set var="paid" scope="session" value="${0}"/>
                     </c:when>
                     <c:otherwise>
-                    	<c:set var="paid" scope="session" value=${order.amount}/>
+                    	<c:set var="paid" scope="session" value="${order.amount}"/>
                     </c:otherwise>
                     </c:choose>
                     

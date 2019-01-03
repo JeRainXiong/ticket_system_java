@@ -142,9 +142,11 @@ public class BaseController {
      * @return
      */
         protected ModelAndView showMessage(String message)
-        {     
+        {    
+            ModelAndView mav = new ModelAndView("error"); 
+            mav.addObject("message", message);
             System.out.println(message);
-            return new ModelAndView("error");
+            return mav;
 
         }
 }
