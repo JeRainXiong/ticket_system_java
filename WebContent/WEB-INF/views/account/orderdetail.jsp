@@ -48,7 +48,7 @@
                     <!-- <span style="font-size: 13px;color: #65B217;"><i class="orderDet_pre_icon icon icon-prebuy"></i><span id="detail_note">请尽快完成付款，逾期将取消订单</span></span> -->
                 </li>
                 <li class="overdue-container"></li>
-                <li class="orderDet_msg_info">下单时间： ${order.creatTime}</li>
+                <li class="orderDet_msg_info">下单时间： ${order.createTime}</li>
                 <li class="orderDet_msg_info">订单编号：${order.orderId}</li>
                 
                 
@@ -58,13 +58,9 @@
                 <div class="orderDet_msg_controll">
                 <p style="width: 100%;display: block" class="clearfix">
                  <c:if test="${order.orderState==0}">
-                    <a class="cancel_btn" onclick="$('#cancelOrder_component').show()">取消订单</a>
-                        
-                        
-                            <a style="margin-bottom: 10px;" class="pay_btn" href="/buy/pay?order_id=${order.orderId}">立即支付</a>
-                 </c:if> 
-                  
-                    
+                    <a class="cancel_btn" onclick="$('#cancelOrder_component').show()">取消订单</a>                 
+                    <a style="margin-bottom: 10px;" class="pay_btn" href="/buy/pay?order_id=${order.orderId}">立即支付</a>
+                 </c:if>                    
                 </p>
                 <!-- <p id="payReserveTimeTag" style="font-size: 13px; color: rgb(0, 0, 0); margin-left: 30px;"><span style="color: rgb(233, 71, 77);font-weight: bold;font-size: 14px;" id="payReserveTime">5:38</span>后将自动取消</p> -->
 
@@ -102,7 +98,7 @@
                         <li> <span class="orderDet_addr_title">配送方式：</span>电子票</li>
                         <li> <span class="orderDet_addr_title">电子票：</span>
                          <c:if test="${order.orderState==1}">   
-                          <a style="margin-bottom: 10px;" class="order_btn order_btn_pay" href="ticket/showticket?ticket_id=${order.ticketId}">显示电子票</a>
+                          <a style="margin-bottom: 10px;" class="order_btn order_btn_pay" href="/showTicket?ticketId=${order.ticketId}">显示电子票</a>
                          </c:if>
                         </li>
 

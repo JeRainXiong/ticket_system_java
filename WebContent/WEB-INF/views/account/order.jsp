@@ -60,7 +60,7 @@
 
      <ul class="clearfix">
         <div class="order_item_left" style=" display: block;  float: left">
-            <a href="/content/c?concert=${order.concertId}" target="_blank">
+            <a href="/content?concertId=${order.concertId}" target="_blank">
                 <img src="${order.concert.concertImg}" data-src="${order.concert.concertImg}" width="103" height="132" alt="${order.concert.concertName}" title="${order.concert.concertName}" style="border-radius: 3px;float: left">
             </a>
 
