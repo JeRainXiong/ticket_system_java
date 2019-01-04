@@ -15,9 +15,16 @@
         <ul class="order_nav" id="order_nav_container">
             <li class="active">
               <a href="/account/order" class="active">
-                我的订单<span class="nav_count  active " id="nav_order_count"></span>
+                我的订单
                 <br><i class="icon-c  icon-c-myorder-hover "></i>
                 <br><b></b>
+              </a>
+            </li>
+            <li >
+              <a href="/account/user" >
+                我的信息
+                <br><i class="icon-c icon-c-myaddress "></i>
+                <br>
               </a>
             </li>
         </ul>

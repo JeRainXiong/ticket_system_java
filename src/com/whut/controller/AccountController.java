@@ -124,5 +124,11 @@ public class AccountController extends BaseController {
         model.addAttribute("state",_state);
         return new ModelAndView("account/orderdetail");
     }    
- 
+    @RequestMapping("/user")
+    public ModelAndView user(Model model){ 
+        if(this._login_user==null)return this.showMessage("登陆后操作",model);
+        return new ModelAndView("account/user");
+    }  
+    
+  
 }
