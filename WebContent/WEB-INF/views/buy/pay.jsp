@@ -50,7 +50,7 @@
       <div class="title">请选择支付方式</div>
       <div class="box-main">
         <ul class="clearfix">
-          <li class="pay-money-img" id="js_zfblink"><a class="icon icon-pay-alibaba" target="_blank" href="${payUrl}"></a></li>
+          <li class="pay-money-img" id="js_zfblink"><a class="icon icon-pay-alibaba" target="_blank"  href="${pay_url} "></a></li>
         </ul>
       </div>
     </div>

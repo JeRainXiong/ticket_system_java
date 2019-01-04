@@ -8,6 +8,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.whut.dao.SeatStaticDao;
 import com.whut.dao.TicketDao;
 import com.whut.dao.TicketTypeDao;
@@ -112,6 +113,27 @@ public class TicketServiceImpl implements TicketService {
     public SeatStatic getSeatStaticById(int id) {
         
         return seatStaticDao.getById(id);
+    }
+
+    @Override
+    public String createTicketQrString(Ticket ticket) {
+        Map<String,Object> map = new HashMap<String,Object>();
+        //加密处理
+/*        map.put("ticketId", ticket.getTicketId());
+        map.put("seatStaticId", ticket.getSeatStaticId());
+        map.put("ticketTypeId", ticket.getTicketTypeId());
+        map.put("createTime", ticket.getCreateTime().toString());*/
+        map.put("tt", ticket.getTicketId());
+        map.put("cc", ticket.getSeatStaticId());
+        map.put("cr", ticket.getTicketTypeId());
+        //map.put("kf", ticket.getCreateTime().toString());
+        
+        String qrString =  JSON.toJSONString(map);
+        return qrString;
+    }
+
+    public List<Ticket> listByOrderId(int orderId) {
+        return dao.listByOrderId(orderId);
     }
 
 }

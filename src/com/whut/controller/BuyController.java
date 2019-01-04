@@ -1,13 +1,13 @@
 package com.whut.controller;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -130,7 +130,6 @@ public class BuyController extends BaseController{
 	
 	
 	@RequestMapping("/pay")
-	@ResponseBody
 	public ModelAndView pay(int order_id, Model model) {
 	    if(!isLogin())return showMessage("登陆后操作");
 		if(order_id == 0)
@@ -155,9 +154,9 @@ public class BuyController extends BaseController{
 		//写入order存入Session中，防止调用，付款时检查session
 		String token = MD5.md5(((new Date()).toString()));
 		order.setOrderToken(token);
-		List<Order> orderList = new ArrayList<Order>();
-		orderList.add(order);
-		request.getSession().setAttribute("orderList", orderList);
+		Map<Integer,Order> orderMap = new HashMap<Integer,Order>();
+		orderMap.put(order.getOrderId(), order);
+		request.getSession().setAttribute("orderMap", orderMap);
 		
 		String pay_url = "/buy/dopay?order_id="+String.valueOf(order.getOrderId())
 		    +"&token="+token;
@@ -169,7 +168,62 @@ public class BuyController extends BaseController{
 		return new ModelAndView("buy/pay");
 		
 	}
-	
-	
+/**
+ * 支付操作，默认成功	
+ * @return
+ */
+    @RequestMapping("dopay")
+    
+    public ModelAndView dopay(Integer order_id,String token){
+        if(!isLogin())return showMessage("登陆后操作");
+
+        if(order_id==null||token==null){
+            return showMessage("非法请求");
+        }
+        HttpSession s = request.getSession();
+        if(s.getAttribute("orderMap")==null ){
+            return showMessage("非法请求2");
+        }
+        Map<Integer,Order> orderMap = ((Map<Integer,Order>)s.getAttribute("orderMap"));
+        if(!orderMap.containsKey(order_id) ){
+            return showMessage("非法请求3");
+        }        
+        Order order = orderMap.get(order_id);
+        if(order.getUserId() != this._login_user.getUserId()){
+            return showMessage("没有权限");
+        }        
+     
+        if(!order.getOrderToken().equals(token)){
+            return showMessage("非法请求4");
+        }
+/*        if(time()>$order['order_token_time']+ 300 ){//token5分钟内没有支付
+            return $this->showMessage('付款链接超时');
+        }*/
+        if(order.getOrderState()==1){
+            return showMessage("此订单已经成功付款！");
+        }     
+        if(order.getOrderState()==2){
+            return showMessage("此订单已关闭");
+        }            
+        //突出重围，链接合法,直接支付成功
+        
+        if(!serviceO.finishOrder(order)){
+            return showMessage("支付失败");
+        }
+        
+        //消除session中待支付的order
+        orderMap.remove(order.getOrderId());
+        s.setAttribute("orderMap", orderMap);
+       
+
+        String ticket_url = "/showTicket?ticketId=" + order.getTicketId();
+        
+        return showMessage("付款成功，3秒后跳转至出票页面"
+                + "<script>$(function(){setTimeout(function(){location.href = '" 
+                + ticket_url+ 
+                "'},3000);});</script>");
+
+
+    }	
 
 }

@@ -51,25 +51,12 @@ public class TicketController extends BaseController {
         Concert concert = ServiceC.getById(ticket.getConcertId());
         SeatStatic seatStatic  =ServiceT.getSeatStaticById(ticket.getSeatStaticId());
         
-        Map<String,Object> map = new HashMap<String,Object>();
-        //加密处理
-/*        map.put("ticketId", ticket.getTicketId());
-        map.put("seatStaticId", ticket.getSeatStaticId());
-        map.put("ticketTypeId", ticket.getTicketTypeId());
-        map.put("createTime", ticket.getCreateTime().toString());*/
-        map.put("tt", ticket.getTicketId());
-        map.put("cc", ticket.getSeatStaticId());
-        map.put("cr", ticket.getTicketTypeId());
-        map.put("kf", ticket.getCreateTime().toString());
-        
-        String qrString =  JSON.toJSONString(map);
-        
         
         model.addAttribute("title", "出票");
-        // 二维码 暂时以固定数据代替
+
         
         
-        model.addAttribute("qrString", qrString);
+        model.addAttribute("qrString", ticket.getCheckCode());
         model.addAttribute("ticket", ticket);
         model.addAttribute("concert", concert);
         model.addAttribute("seatStatic", seatStatic);

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.whut.dao.OrderDao;
 import com.whut.dao.TicketTypeDao;
+import com.whut.entity.Concert;
 import com.whut.entity.Order;
 import com.whut.entity.SeatStatic;
+import com.whut.entity.Ticket;
 import com.whut.entity.TicketType;
 import com.whut.service.OrderService;
 @Service
@@ -20,6 +22,8 @@ public class OrderServiceImpl implements OrderService {
 	OrderDao dao;
     @Autowired
     TicketServiceImpl ServiceT;
+    @Autowired
+    ConcertServiceImpl ServiceC;
     @Autowired
     TicketTypeDao ticketTypeDao;
 	@Override
@@ -87,11 +91,37 @@ public class OrderServiceImpl implements OrderService {
         if(ss ==null ) return false;
         
         ticketType.setRestNum(ticketType.getRestNum()-1);
-        System.out.println("更新ticketType表");
-        System.out.println(ticketType);
+        //System.out.println("更新ticketType表");
+      //  System.out.println(ticketType);
         if(ticketTypeDao.update(ticketType)==0)return false;//更新失败
-        System.out.println("插入order");
+      //  System.out.println("插入order");
+       
         if(dao.insert(order)==0)return false;
+        Concert concert = ServiceC.getById(order.getConcertId());
+        //创建临时ticket
+        Ticket ticket = new Ticket(0,
+                order.getOrderId(),
+                ss.getSeatStaticId(),
+                order.getTicketTypeId(),
+                order.getConcertId(),
+                concert.getConcertName(),
+                concert.getConcertTime(),
+                concert.getConcertAddr(),
+                order.getUserId(),
+                order.getIdCard(),
+                order.getRealname(),
+                new Date(),
+                0,
+                "",
+                ""
+                );
+        
+        ticket.setCheckCode(ServiceT.createTicketQrString(ticket));
+        if(ServiceT.insert(ticket)==0)return false;
+        order.setTicketId(ticket.getTicketId());
+        dao.update(order);
+        
+        
         return true;
     }
     /**
@@ -103,6 +133,11 @@ public class OrderServiceImpl implements OrderService {
             order.setPaymentState(1);
             order.setFinishTime(new Date());
             
+            List<Ticket> ticketList = ServiceT.listByOrderId(order.getOrderId());
+            for(Ticket t : ticketList) {
+                t.setTicketState(1);
+                ServiceT.update(t);
+            }
             //若更新失败
             if(dao.update(order)==0)return false;
             return true;

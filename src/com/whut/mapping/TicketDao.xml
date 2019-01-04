@@ -24,6 +24,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTicketTypeListByConcert" resultType="TicketType" parameterType="int">
 	    select * from ticket_type where concert_id = #{id}
 	</select>
+    <select id="listByOrderId" resultType="Ticket" parameterType="int">
+        select * from ticket where order_id = #{orderId}
+    </select>	
+	
 	
     <select id="listChoosen" resultType="Ticket" parameterType="map">
         select * from ticket 
@@ -43,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    )
 	</insert>
 	
-	<update id="update">
+	<update id="update"  parameterType="Ticket">
 	    update ticket
 	    <set>
 	        order_id = #{orderId},seat_static_id = #{seatStaticId},ticket_type_id = #{ticketTypeId},
@@ -51,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        concert_addr = #{concertAddr},user_id = #{userId},id_card = #{idCard},
 	        ticket_token = #{ticketToken},ticket_state = #{ticketState}
 	    </set>
-	    where ticket_id = #{id}
+	    where ticket_id = #{ticketId}
 	</update>
 	
 	<delete id="deleteById" parameterType="int">

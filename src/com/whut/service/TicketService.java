@@ -21,4 +21,8 @@ public interface TicketService {
 	
 	public SeatStatic getRandomSeat(int ticketType);
 	public SeatStatic getSeatStaticById(int id);
+	
+	public String createTicketQrString(Ticket t);
+	
+	 public List<Ticket> listByOrderId(int orderId);
 	}

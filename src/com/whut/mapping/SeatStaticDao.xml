@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        seat_static_id = #{seatStaticId},venue_id = #{venueId},row = #{row},
 	        column = #{column},seat_level = #{seatLevel},entrance = #{entrance},
 	    </set>
-	    where seat_static_id = #{id}
+	    where seat_static_id = #{seatStaticId}
 	</update>
 	
 	<delete id="deleteById" parameterType="int">
