@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.whut.entity.Concert;
@@ -19,6 +20,7 @@ import com.whut.entity.User;
 import com.whut.service.impl.ConcertServiceImpl;
 import com.whut.service.impl.OrderServiceImpl;
 import com.whut.service.impl.TicketTypeServiceImpl;
+import com.whut.service.impl.UserServiceImpl;
 import com.whut.util.Bean2Map;
 
 @Controller
@@ -29,7 +31,9 @@ public class AccountController extends BaseController {
     @Autowired
     ConcertServiceImpl ServiceC;
     @Autowired
-    TicketTypeServiceImpl ServiceT;       
+    TicketTypeServiceImpl ServiceT;     
+    @Autowired
+    UserServiceImpl ServiceU;      
     protected HashMap<String,String> _state = new HashMap<String, String>(){
         {
         put("0", "待付款");
@@ -126,9 +130,56 @@ public class AccountController extends BaseController {
     }    
     @RequestMapping("/user")
     public ModelAndView user(Model model){ 
-        if(this._login_user==null)return this.showMessage("登陆后操作",model);
+        if(this._login_user==null)return this.showMessage("登陆后操作");
+        
+        model.addAttribute("title","我的信息");     
         return new ModelAndView("account/user");
     }  
     
+    @RequestMapping("/changeinfo")
+    @ResponseBody
+    public String changeinfo(String realname,String tel,String id_card){ 
+        if(this._login_user==null)return this.error("登陆后操作",null,1001);
+        User u = new User(_login_user);
+        if(!realname.isEmpty())
+            u.setUserRealname(realname);
+        if(!tel.isEmpty())
+            u.setTel(tel);
+        if(!id_card.isEmpty())
+            u.setUserIdCard(id_card);
+        
+        if(ServiceU.update(u) != 0) {
+            this._login_user=u;
+            request.getSession().setAttribute("user", u);
+
+            
+            return success("修改信息成功",null,2000);
+            
+        }
+        else
+            return error("修改失败",null,2003);        
+
+    }  
+    @RequestMapping("/changepssword")
+    @ResponseBody
+    public String changepssword(String old_password,String new_password){ 
+        if(this._login_user==null)return this.error("登陆后操作",null,1001);
+        if(old_password==null || new_password==null)return this.error("参数错误", null, 1002);
+        if(!_login_user.getPassword().equals(old_password))
+            return this.error("原密码错误", null, 1003);
+        
+        User u = new User(_login_user);
+        u.setPassword(new_password);
+        
+        if(ServiceU.update(u) != 0) {
+            this._login_user=u;
+            request.getSession().setAttribute("user", u);
+            return success("修改密码成功",null,2000);
+            
+        }
+        else
+            return error("修改失败",null,2003);     
+    }  
+               
   
 }

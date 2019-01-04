@@ -52,7 +52,15 @@ public class User{
 		this.userIdCard = userIdCard;
 		this.tel = tel;
 	}
-    
+    public User(User user) {
+        super();
+        this.userId = user.userId;
+        this.username = user.username;
+        this.password = user.password;
+        this.userRealname = user.userRealname;
+        this.userIdCard = user.userIdCard;
+        this.tel = user.tel;
+    }    
     public User() {}
 	@Override
 	public String toString() {

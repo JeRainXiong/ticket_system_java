@@ -121,7 +121,8 @@ function UserComponent() {
 		logoutURL: "/login/dologout",
 		registerURL: '/register/doregister',
 		makeOrderURL:'/buy/makeorder',
-		//uploadPhotoURL:'/account/uploadPhotoAjax'
+		changeInfoURL:'/account/changeinfo',
+		changePasswordURL:'/account/changepssword',
 	}
 }
 UserComponent.prototype.login = function(username, password) {
@@ -168,7 +169,7 @@ UserComponent.prototype.logout = function() {
 		}
 	});
 };
-UserComponent.prototype.register = function(username, password, realename, idCard, tel) {
+UserComponent.prototype.register = function(username, password) {
 	$.ajax({
 		url: this.API.registerURL,
 		type: 'post',
@@ -225,7 +226,52 @@ UserComponent.prototype.makeOrder = function(concert_id,ticket_type_id,name,telp
 			app.alertMsg('创建订单失败')
 		}
 	});
-}
+};
+UserComponent.prototype.changeInfo = function(realname,tel,id_card){
+		$.ajax({
+		url: this.API.changeInfoURL,
+		type: 'post',
+		data: {
+            'realname' :realname,
+            'tel':tel ,
+            'id_card':id_card,
+ 
+		},
+		success: function(data) {
+			var data = JSON.parse(data);
+			if (data.code == '2000') {
+				app.alertMsg(data.msg);
+			} else {
+				app.alertMsg(data.msg);
+			}
+		},
+		error: function() {
+			app.alertMsg('修改失败')
+		}
+	});
+};
+UserComponent.prototype.changePassword = function(old_password,new_password){
+		$.ajax({
+		url: this.API.changePasswordURL,
+		type: 'post',
+		data: {
+            'old_password' :old_password,
+            'new_password':new_password ,
+ 
+		},
+		success: function(data) {
+			var data = JSON.parse(data);
+			if (data.code == '2000') {
+				app.alertMsg(data.msg);
+			} else {
+				app.alertMsg(data.msg);
+			}
+		},
+		error: function() {
+			app.alertMsg('修改失败')
+		}
+	});
+};
 /*
 UserComponent.prototype.uploadPhoto = function(formdata,callBack){
 		$.ajax({
@@ -258,99 +304,96 @@ function PageController(){
 
 };
 PageController.prototype.init = function() {
-	var _self = this;
-	this.User = new UserComponent;
-	$('#js_login_btn').click(function() {
-			var username = $('#js_username').val();
-			var password = $('#js_password').val();
-			if (username == '' || password == "") return void app.alertMsg("请输入用户名或者密码！");
-			_self.User.login(username, password);
-			// var md5_password = app.md5_encode(password);
+		var _self = this;
+		this.User = new UserComponent;
+		$('#js_login_btn').click(function() {
+				var username = $('#js_username').val();
+				var password = $('#js_password').val();
+				if (username == '' || password == "") return void app.alertMsg("请输入用户名或者密码！");
+				var md5_password = app.md5_encode(password);
+				_self.User.login(username, md5_password);
 
-		}),
-		$('#js_register_btn').click(function() {
-			var username = $('#js_register_username').val();
-			var password = $('#js_register_password').val();
-			var password_again = $('#js_register_password_again').val();
-			var realname = $('#js_register_realname').val();
-			var idCard = $('#js_register_idCard').val();
-			var tel = $('#js_register_tel').val();
-			if (username == '' || password == "" || password_again == "" || password_again == '' || realname == '' || idCard == '' || tel == '')
-				return void app.alertMsg("请输入完整的信息！");
-			if (password_again != password) return void app.alertMsg("两次密码不一致！");
-			// _self.User.register(username, password, realname, idCard, tel);
-				_self.User.register(username, password);
-		}), 
-		$("#js_logout_btn").click(function() {
-			_self.User.logout();
-		}),
-		$("#js_open_login").click(function() {
-			$(".login-component").show();
-		}),
-		$("#js_open_register").click(function() {
-			$("#register_component").show();
-		}),
-		$("#js_open_logout").click(function() {
-			$("#cancelLogin_component").show()
-		}),
-		$('#js_open_register_btn').click(function(){
-			$(".login-component").hide();
-			$("#register_component").show();
-		}),
-       $('#js-preorder-btn').click(function(){
-			var ticket_type_id = $('#sessionPar-container .list-one.active').attr('data-id');
-			var concert_id = $(".show-detail-page").attr('concert_id');
-       		_self.User.preorder(concert_id,ticket_type_id);
-       	}),
-        $('#sessionPar-container .list-one').click(function(){
-            $('#sessionPar-container .list-one.active').removeClass("active");
-            $(this).addClass("active");
-            var price = $(this).attr('data-price');
-            $('#unit-price').html(price+ '元').prev().prev().html(price)
-        }),
-   	 	$('#comfirm-moneyTotal-buy').click(function(){
-   	    	var name = $('#comfirm-qpfsList-container .shipment-name').val();
- 	  	   	var telphone = $('#comfirm-qpfsList-container .shipment-telphone').val();
- 	  	   	var idCardNum = $('#comfirm-qpfsList-container .shipment-idCardNum').val();
- 	  	   	var concert_id = $('#comfirm-show-container').attr('concert_id');
- 	  	   	var ticket_type_id = $('#comfirm-show-container').attr('ticket_type_id');
- 	  	   	//var photo_path = $('#photo_url').val();
- 	  	   	_self.User.makeOrder(concert_id,ticket_type_id,name,telphone,idCardNum);
- 	  	 }),
- 	  	 $("#js_search_btn").click(function(){
- 	  	 	var key_word = $(".search-text").val();
- 	  	 	if ($.trim(key_word)) {
-			encodeURIComponent(key_word);
-			window.location.href = "/search?key_word=" + key_word;
-		}
- 	  	 });
 
- 	  	 /*$('#js_uploadPhoto').click(function(){
-			var animateimg = $("#photoPath").val(); //获取上传的图片名 带//  
-			if(animateimg == '') return app.alertMsg("请选择文件"); 
-		    var imgarr=animateimg.split('\\'); //分割  
-		    var myimg=imgarr[imgarr.length-1]; //去掉 // 获取图片名  
-		    var houzui = myimg.lastIndexOf('.'); //获取 . 出现的位置  
-		    var ext = myimg.substring(houzui, myimg.length).toUpperCase();  //切割 . 获取文件后缀  
-		      
-		    var file = $('#photoPath').get(0).files[0]; //获取上传的文件  
-		    var fileSize = file.size;           //获取上传的文件大小  
-		    var maxSize = 10485760;              //最大5MB  	 
-		    console.log(ext);
-		    // var user_id = $("#user_info").attr('user_id'); 	 	
-		    if(ext !='.PNG' && ext !='.JPG' && ext !='.JPEG' && ext !='.BMP'){  
-        	return void app.alertMsg("格式错误");
-		    }else if(parseInt(fileSize) >= parseInt(maxSize)){  
-		        return void app.alertMsg("大小超过10M");
-		    }else{ 
-				var data = new FormData($('#form_upload')[0]);
-				_self.User.uploadPhoto(data,function(data){
-					app.alertMsg("图片上传成功！"); 
-            	    $('#show_photo').attr('src',data['data']['photo_url']);  
-            	    $('#photo_url').val(data['data']['photo_url']);  					
-				});   
-		    }   	
- 	  	 });   */ 
+			}),
+			$('#js_register_btn').click(function() {
+				var username = $('#js_register_username').val();
+				var password = $('#js_register_password').val();
+				var password_again = $('#js_register_password_again').val();
+				var realname = $('#js_register_realname').val();
+				var idCard = $('#js_register_idCard').val();
+				var tel = $('#js_register_tel').val();
+				if (username == '' || password == "" || password_again == "" || password_again == '' || realname == '' || idCard == '' || tel == '')
+					return void app.alertMsg("请输入完整的信息！");
+				if (password_again != password) return void app.alertMsg("两次密码不一致！");
+				var md5_password = app.md5_encode(password);
+				// _self.User.register(username, password, realname, idCard, tel);
+				_self.User.register(username, md5_password);
+			}),
+			$("#js_logout_btn").click(function() {
+				_self.User.logout();
+			}),
+			$("#js_open_login").click(function() {
+				$(".login-component").show();
+			}),
+			$("#js_open_register").click(function() {
+				$("#register_component").show();
+			}),
+			$("#js_open_logout").click(function() {
+				$("#cancelLogin_component").show()
+			}),
+			$('#js_open_register_btn').click(function() {
+				$(".login-component").hide();
+				$("#register_component").show();
+			}),
+			$('#js-preorder-btn').click(function() {
+				var ticket_type_id = $('#sessionPar-container .list-one.active').attr('data-id');
+				var concert_id = $(".show-detail-page").attr('concert_id');
+				_self.User.preorder(concert_id, ticket_type_id);
+			}),
+			$('#sessionPar-container .list-one').click(function() {
+				$('#sessionPar-container .list-one.active').removeClass("active");
+				$(this).addClass("active");
+				var price = $(this).attr('data-price');
+				$('#unit-price').html(price + '元').prev().prev().html(price)
+			}),
+			$('#comfirm-moneyTotal-buy').click(function() {
+				var name = $('#comfirm-qpfsList-container .shipment-name').val();
+				var telphone = $('#comfirm-qpfsList-container .shipment-telphone').val();
+				var idCardNum = $('#comfirm-qpfsList-container .shipment-idCardNum').val();
+				var concert_id = $('#comfirm-show-container').attr('concert_id');
+				var ticket_type_id = $('#comfirm-show-container').attr('ticket_type_id');
+				//var photo_path = $('#photo_url').val();
+				_self.User.makeOrder(concert_id, ticket_type_id, name, telphone, idCardNum);
+			}),
+			$("#js_search_btn").click(function() {
+				var key_word = $(".search-text").val();
+				if ($.trim(key_word)) {
+					encodeURIComponent(key_word);
+					window.location.href = "/search?key_word=" + key_word;
+				}
+			}),
+			$("#js_submit_info").click(function(){
+				var realname = $("#div-info .realname").val();
+				var tel = $("#div-info .tel").val();
+				var id_card = $("#div-info .id_card").val();
+				if(realname == "" || tel == "" || id_card == ""){
+					return void app.alertMsg("请输入完整的信息！");
+				}
+
+
+				_self.User.changeInfo(realname,tel,id_card);
+			}),
+			$("#js_submit_password").click(function(){
+				var old_password = $("#div-password .old_password").val();
+				var new_password = $("#div-password .new_password").val();
+				var new_password_again = $("#div-password .new_password_again").val();
+
+				if(old_password == "" || new_password == "" || new_password_again == "")
+					return void app.alertMsg("请输入完整的信息！");
+				if(new_password !=  new_password_again )
+					return void app.alertMsg("两次密码不一致！");	
+				_self.User.changePassword(app.md5_encode(old_password),app.md5_encode(new_password));
+			}),
 		
 
     $('#sessionPar-container .list-one').eq(0).click();

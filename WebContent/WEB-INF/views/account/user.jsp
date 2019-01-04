@@ -47,7 +47,7 @@
               </ul>        
             </div>
            <!--修改个人信息-->
-        <div class= "taketicket ">
+        <div class= "taketicket" id ="div-info">
            <ul>
            <label for="" style="margin-right:18px;color: #58585A;">昵&nbsp;&nbsp;&nbsp;&nbsp;称&nbsp;&nbsp;&nbsp;&nbsp;</label>
            <label style="margin-left:18px;color: #58585A;">${user.username }</label>
@@ -55,44 +55,44 @@
            
            <ul class="box-item-left">
            <label for="" style="margin-right:18px;color: #58585A;"> 姓&nbsp;&nbsp;&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;&nbsp;</label>
-           <input class="shipment-name  placeholder" placeholder="真实名" name="realname" value="${user.userRealname}">
+           <input class="realname placeholder" placeholder="真实名" name="realname" value="${user.userRealname}">
            </ul>
            
            <ul  class="box-item-left">
            <label for="" style="margin-right:18px;color: #58585A;"> 身份证&nbsp;&nbsp;&nbsp;&nbsp;</label>
-           <input class=" placeholder" placeholder="身份证号" name="IDcard" value="${user.userIdCard}">
+           <input class="id_card placeholder" placeholder="身份证号" name="id_card" value="${user.userIdCard}">
            </ul>
            
            <ul class="box-item-left">
            <label for="" style="margin-right:18px;color: #58585A;"> 手机号&nbsp;&nbsp;&nbsp;&nbsp;</label>
-           <input class=" placeholder" placeholder="手机号" name="IDcard" value="${user.tel}">
+           <input class="tel placeholder" placeholder="手机号" name="tel" value="${user.tel}">
            </ul>
            
-           <div class="fr" id="submit_user_info">
+           <div class="fr" id="js_submit_info">
                     
-                    <span class="btn btn-main adress_save"><a class="" style="display:block;">保 存</a></span>
+                    <span class="btn btn-main info_save"><a class="" style="display:block;">保 存</a></span>
            </div>
         </div>
     <HR  width="98%" color=#f2efef SIZE=1>
     <!--修改密码--> 
-         <div class = "taketicket">
+         <div class = "taketicket" id="div-password">
          <div class= "box-item-left">
            <label for="" style="margin-right:18px;color: #58585A;">原密码&nbsp;&nbsp;&nbsp;&nbsp;</label>
-           <input type="password" class="name placeholder" placeholder="请输入原密码" name="OldPassword" >
+           <input type="password" class="old_password placeholder" placeholder="请输入原密码" name="oldPassword" >
            </div>
            
             <div class= "box-item-left">
            <label for="" style="margin-right:18px;color: #58585A;">新密码&nbsp;&nbsp;&nbsp;&nbsp;</label>
-           <input  type="password" class="name placeholder" placeholder="请输入新密码" name="NewPassward" >
+           <input  type="password" class="new_password placeholder" placeholder="请输入新密码" name="NewPassward" >
            </div>
            
            <div class= "box-item-left">
            <label for="" style="margin-right:18px;color: #58585A;">确认密码</label>
-           <input  type="password" class="name placeholder" placeholder="请再次输入新密码" name="AgainNewPassward" >
+           <input  type="password" class="new_password_again placeholder" placeholder="请再次输入新密码" name="AgainNewPassward" >
            </div>
            
-           <div class="fr" id="submit_password">                    
-                    <span class="btn btn-main adress_save"><a class="" style="display:block;">保 存</a></span>
+           <div class="fr" id="js_submit_password">                    
+                    <span class="btn btn-main password_save"><a class="" style="display:block;">保 存</a></span>
            </div>
            
          </div>
