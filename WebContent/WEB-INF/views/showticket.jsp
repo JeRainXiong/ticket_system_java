@@ -23,7 +23,7 @@
    
   }
     .ticket_mid{
-        width:500px;
+        width:550px;
         float: left;
        
   }
@@ -32,6 +32,22 @@
         height: 256px;
     float: left;
   }
+    .order_detailinfo_color {
+	    color: #202020;
+	    font-size: 30px;
+	    margin: 10px 0px;
+	    line-height:140%;
+	    
+	}
+    .order_detailinfo_fontSize{
+	    font-size: 24px;
+	    margin: 8px 0px;
+	   
+	}
+	.high{
+	    margin: 8px 0px;
+        padding: 5px 0px
+	}
   
 </style>
 </head>
@@ -40,16 +56,16 @@
     <div>
         <div class='showticket' id = 'capture'>
             <div class = "ticket_left">
-                <img src="${concert.concertImg }" alt="票" width="170px" height="250px">
+                <img src="${concert.concertImg }" alt="票" width="170px" height="256px">
             </div>  
             <div class = "ticket_mid">
                 <ul class="order_show_info">
-                <li><span class="order_detailinfo_color">演唱会：${ticket.concertName}</span></li>
+                <li class="high" style="padding:0px"><span class="order_detailinfo_color">演唱会：${ticket.concertName}</span></li>
 
-                <li>时间：${ticket.concertTime}</li>
-                <li>场馆：${ticket.concertAddr}</li>
-                <li>座位:第${seatStatic.row }排 第${seatStatic.column }号 </li>
-                <li>入口：${seatStatic.entrance }</li>
+                <li class="high"><span class="order_detailinfo_fontSize">时间：${ticket.concertTime}</span></li>
+                <li class="high"><span class="order_detailinfo_fontSize">场馆：${ticket.concertAddr}</span></li>
+                <li class="high"><span class="order_detailinfo_fontSize">座位:第${seatStatic.row }排 第${seatStatic.column }号 </span></li>
+                <li class="high"><span class="order_detailinfo_fontSize">入口：${seatStatic.entrance }</span></li>
                 </ul>
             </div>                      
             <div id = "qrimg" class = "ticket_right">
